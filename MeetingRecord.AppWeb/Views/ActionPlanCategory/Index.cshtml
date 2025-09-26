@@ -1,0 +1,41 @@
+﻿<!--============================================
+Description:    Index - CategoryActionPlan
+Author:         ANGELY YAHAYRA MENDEZ CRUZ
+Version:        1.1.0
+Since:          02/08/2025
+================================================ -->
+<!-- start container-->
+<div class="container">
+    <div class="seaction">
+        <div class="col s12 m12 l12" style="padding-top: 20px;">
+            <div class="row">
+                <div class="col s12 m12 l12">
+                    <div class="card hoverable">
+                        <div class="card-image blue lighten-4">
+                            <!-- Título: Categorías -->
+                            <div class="card-content card-content-head" style="border-bottom:1px solid #e0e6ed; margin-bottom:18px;">
+                                <span class="card-title white blue-dark-text">
+                                    <i class="material-icons">book</i> <span>Categorías de Planes de Acción</span>
+                                </span>
+                            </div>
+                            <!-- Agregar Nuevo Categorías -->
+                            <a id="btn-add-category" class="btn-floating activator halfway-fab waves-effect waves-light green">
+                                <i class="material-icons">add</i>
+                            </a>
+                        </div>
+                        <div class="card-content card-content-body div-content-location-meeting white-text" style="height: 100%; overflow-y: auto;">
+                            <div class="div-alert-message"></div>
+                            <table id="datatable-category" class="dataTable display cell-border hover order-column row-border stripe" style="width: 100%;">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end container -->
+
+@section Scripts {
+    @Scripts.Render("~/bundles/js/ActionPlanCategory")
+}

@@ -1,0 +1,115 @@
+﻿body {
+    background: rgb(204,204,204);
+}
+
+.pageA4 {
+    background: white;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 0.5cm;
+    box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+    width: 21cm;
+}
+
+/* REGLAS ESPECÍFICAS PARA EVITAR SUPERPOSICIÓN DE CABECERAS */
+
+/* Asegura que el título no quede huérfano de su tabla */
+h4.header {
+    page-break-after: avoid;
+    break-after: avoid;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+}
+
+/* Permite que la tabla fluya naturalmente entre páginas */
+.dataTable {
+    page-break-inside: auto;
+    break-inside: auto;
+}
+
+/* Evita que la cabecera de la tabla quede sola en una página */
+.dataTable thead {
+    page-break-after: avoid;
+    break-after: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+/* Repite la cabecera en cada página (si wkhtmltopdf lo soporta) */
+.dataTable thead tr {
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+/* Evita que las filas se corten por la mitad */
+.dataTable tbody tr {
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+/* Espaciado adicional antes de secciones importantes */
+.section {
+    margin-bottom: 15px;
+}
+
+/* Espaciado específico antes del Plan de Acción */
+.plan-section-spacing {
+    margin-top: 25px;
+    padding-top: 15px;
+}
+
+page[size="A4"] {
+    width: 21cm;
+    height: 29.7cm;
+}
+
+page[size="A4"][layout="portrait"] {
+    width: 29.7cm;
+    height: 21cm;
+}
+
+page[size="A3"] {
+    width: 29.7cm;
+    height: 42cm;
+}
+
+page[size="A3"][layout="portrait"] {
+    width: 42cm;
+    height: 29.7cm;
+}
+
+page[size="A5"] {
+    width: 14.8cm;
+    height: 21cm;
+}
+
+page[size="A5"][layout="portrait"] {
+    width: 21cm;
+    height: 14.8cm;
+}
+
+@media print {
+    body, page {
+        margin: 0;
+        box-shadow: 0;
+    }
+
+    /* Mejora el comportamiento de las tablas en PDF */
+    table {
+        page-break-inside: auto;
+    }
+
+    /* Evita que los títulos queden huérfanos */
+    h1, h2, h3, h4, h5, h6 {
+        page-break-after: avoid;
+        break-after: avoid;
+        orphans: 3;
+        widows: 3;
+    }
+}
+
+.list-detail {
+    cursor: auto;
+    background-color: #fff0;
+    border-bottom: 1px solid #ddd0;
+}

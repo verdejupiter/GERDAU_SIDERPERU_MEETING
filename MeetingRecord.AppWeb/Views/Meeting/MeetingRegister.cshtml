@@ -1,0 +1,392 @@
+﻿<!--============================================
+Description:    Vista de registro de acta de reunión
+Author:         ANGELY YAHAYRA MENDEZ CRUZ
+Version:        1.1.1
+UpdateAt:       27/08/2025
+================================================ -->
+
+<div class="container">
+    <form id="form-meeting" onsubmit="return false">
+
+        <div class="seaction">
+
+            <div class="col s12 m12 l12" style="padding-top: 20px;">
+
+                <!-- Información y asistencia -->
+                <div class="row">
+
+                    <!-- Información -->
+                    <div class="col s12 m12 l7 div-info-meeting">
+
+                        <div class="card grey white hoverable" style="min-height: 431px;">
+
+                            <!-- Título -->
+                            <div class="card-image">
+                                <div class="card-content card-content-head" style="border-bottom:1px solid #e0e6ed; margin-bottom:18px;">
+                                    <!-- AMENDEZ5 -->
+                                    <span class="card-title blue-dark-text">
+                                        <i class="material-icons">info</i>
+                                        <span>Datos Generales</span> <!-- AMENDEZ5 -->
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="card card-without-bordex">
+
+                                <div class="card-content black-text" style="padding-right: 0px !important; padding-left: 0px !important; padding-top: 5px !important; ">
+                                    <!-- AMENDEZ5 -->
+
+                                    <div class="row row-adjust">
+                                        <!-- Código de Reunión -->  <!-- AMENDEZ5 -->
+                                        <div class="col s12 m3" style="padding-top: 8px; padding-right: 0rem !important">
+                                            <div class="input-field-with-icon">
+                                                <input type="text" id="txt-meeting-code" name="txt-meeting-code" placeholder="Buscar" readonly>
+                                                <label for="txt-meeting-code">Cod.Reunión</label>
+                                            </div>
+                                        </div>
+                                        <!-- Área --> <!-- AMENDEZ5 -->
+                                        <div class="col s12 m5" style="padding-top: 8px;">
+                                            <div class="input-field-with-icon">
+                                                <select name="cbo-area" id="cbo-area" class="select-dropdown select-with-search pmd-select2 form-control">
+                                                </select>
+                                                <label for="cbo-area">Área <span style="color: #F44336; font-weight: bold;">*</span></label>
+                                            </div>
+                                        </div>
+                                        <!-- Célula --> <!-- AMENDEZ5 -->
+                                        <div class="col s12 m4" style="padding-top: 8px;">
+                                            <div class="input-field-with-icon">
+                                                <select name="cbo-cell" id="cbo-cell" class="select-dropdown select-with-search pmd-select2 form-control">
+                                                </select>
+                                                <label for="cbo-cell">Célula</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row row-adjust">
+                                        <!-- Día -->  <!-- AMENDEZ5 -->
+                                        <div class="col s12 m4" style="padding-top: 25px;">
+                                            <div class="input-field-with-icon">
+                                                <input type="text" id="txt-meeting-date" name="txt-meeting-date">
+                                                <label for="txt-meeting-date">Día <span style="color: #F44336; font-weight: bold;">*</span></label>
+                                                <i class="material-icons suffix icon-calendar">date_range</i>
+                                            </div>
+                                        </div>
+                                        <!-- Hora de Inicio -->  <!-- AMENDEZ5 -->
+                                        <div class="col s12 m4" style="padding-top: 25px;">
+                                            <div class="input-field-with-icon">
+                                                <i class="material-icons suffix icon-clock">access_time</i>
+                                                <input type="text" id="txt-meeting-start-time" name="txt-meeting-start-time">
+                                                <label for="txt-meeting-start-time">Hora de Inicio <span style="color: #F44336; font-weight: bold;">*</span></label>
+                                            </div>
+                                            <div id="txt-meeting-start-time-error" class="error2"></div>
+                                        </div>
+                                        <!-- Hora de Fin --> <!-- AMENDEZ5 -->
+                                        <div class="col s12 m4" style="padding-top: 25px;">
+                                            <div class="input-field-with-icon">
+                                                <i class="material-icons suffix icon-clock">access_time</i>
+                                                <input type="text" id="txt-meeting-end-time" name="txt-meeting-end-time">
+                                                <label for="txt-meeting-end-time" class="campo-obligatorio">Hora de Fin <span style="color: #F44336; font-weight: bold;">*</span></label>
+                                            </div>
+                                            <div id="txt-meeting-end-time-error" class="error2"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row row-adjust">
+                                        <!-- Tipo de Reunión -->  <!-- AMENDEZ5 -->
+                                        <div class="col s12 m8" style="padding-top: 25px;">
+                                            <div class="input-field-with-icon">
+                                                <select name="cbo-type-meeting" id="cbo-type-meeting" class="select-dropdown select-with-search pmd-select2 form-control">
+                                                </select>
+                                                <!-- 16/8 -->
+                                                <label for="cbo-type-meeting">Tipo de reunión <span style="color: #F44336; font-weight: bold;">*</span></label>
+                                            </div>
+                                        </div>
+                                        <!-- Lugar location --> <!-- AMENDEZ5 -->
+                                        <div class="col s12 m4" style="padding-top: 25px;">
+                                            <div class="input-field-with-icon">
+                                                <select id="txt-meeting-location" name="txt-meeting-location" class="select-dropdown select-with-search pmd-select2 form-control"></select>
+                                                <label for="txt-meeting-location">Lugar <span style="color: #F44336; font-weight: bold;">*</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row row-adjust">
+                                        <!-- Nombre de reunión --> <!-- AMENDEZ5 -->
+                                        <div class="col s12 m12" style="padding-top: 25px;">
+                                            <div class="input-field-with-icon">
+                                                <input type="text" id="txt-meeting-subject" name="txt-meeting-subject" autocomplete="off" placeholder="Escribir nombre de reunión">
+                                                <label for="txt-meeting-subject">Nombre de reunión <span style="color: #F44336; font-weight: bold;">*</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Asistencia --> <!-- AMENDEZ5 -->
+                    <div class="col s12 m12 l5">
+                        <div class="card grey white hoverable">
+                            <div class="card-image lighten-4">
+                                <div class="card-content card-content-head" style="border-bottom: 1px solid #e0e6ed; margin-bottom: 18px; display: flex; gap: 10px;">
+                                    <span class="card-title blue-dark-text" style="padding: 10px;margin-bottom: 0px;">
+                                        <i class="material-icons">group</i> Asistentes
+                                    </span>
+                                    <button type="button" id="btn-delete-assistance"
+                                            class="waves-effect waves-light btn red lighten-1 gradient-shadow left" style="padding-left: 8px; padding-right: 10px; display:none; position:absolute; right: 90px; bottom: -18px; margin-bottom: 0px; margin-top: 0px; ">
+                                        <i class="material-icons left" style="margin-right: 5px;">delete</i> Eliminar
+                                    </button>
+                                    <a id="btn-add-guest" class="btn-floating halfway-fab waves-effect waves-light green">
+                                        <i class="material-icons">add</i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="card-content white-text card-content-body card-content-assistance" style="padding: 10px 20px 10px 20px !important;">
+                                <table id="datatable-user-assistance" class="dataTable display cell-border hover order-column row-border stripe" style="width: 100%; margin-bottom: 20px;">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row ">
+
+                    <!-- Opcionales --> <!-- AMENDEZ5 -->
+                    <div class="col s12 m12 l12">
+                        <div class="card hoverable">
+                            <div class="card-image white lighten-4" style="position: relative;">
+                                <div class="card-content card-content-head" style="border-bottom:1px solid #e0e6ed; margin-bottom:18px; display: flex; justify-content: space-between; align-items: center;" id="opcionales-header">
+                                    <span class="card-title blue-dark-text" style="padding: 10px;margin-bottom: 0px;">
+                                        <i class="material-icons">format_list_bulleted</i> <span>Opcionales</span>
+                                    </span>
+                                    <button type="button" id="btn-toggle-opcionales" class="btn-flat" style="min-width: 36px;">
+                                        <i id="icon-toggle-opcionales" class="material-icons">expand_more</i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="opcionales-content" class="card-content black-text card-content-body" style="padding-top: 10px !important; display: none;">
+                                <div class="row">
+                                    <!-- Agenda -->
+                                    <div class="col s12 m12 l6">
+                                        <div id="div-meeting-pauta" class="input-field-with-icon">
+                                            <a id="btn-add-pauta" class="btn-floating activator halfway-fab waves-effect waves-light green" style="bottom: 20px !important; right: 0px !important;">
+                                                <i class="material-icons">add</i>
+                                            </a>
+                                            <textarea name="text-meeting-pauta" class="text-meeting-pauta" autocomplete="off" aria-required="true" placeholder="Escribir la agenda"></textarea>
+                                            <label>Agenda</label>
+                                            <!--
+                                            <input name="text-meeting-pauta" class="text-meeting-pauta" type="text" autocomplete="off" aria-required="true" placeholder="Escribir la agenda">
+                                            <label>Agenda</label>-->
+                                        </div>
+                                    </div>
+                                    <!-- Acuerdos -->
+                                    <div class="col s12 m12 l6">
+                                        <div id="div-meeting-development" class="input-field-with-icon">
+                                            <a id="btn-add-description" class="btn-floating activator halfway-fab waves-effect waves-light green" style="bottom: 20px !important; right: 0px !important;">
+                                                <i class="material-icons">add</i>
+                                            </a>
+                                            <textarea name="text-meeting-description" class="text-meeting-description" autocomplete="off" aria-required="true" placeholder="Escribir los acuerdos"></textarea>
+                                            <label>Acuerdos</label>
+                                            <!--
+                                            <input name="text-meeting-description" class="text-meeting-description" type="text" autocomplete="off" aria-required="true" placeholder="Escribir los acuerdos">
+                                            <label>Acuerdos</label>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <!-- Anexos en una fila aparte -->
+                                    <div class="col s12 m12 l12" style="padding-top: 15px;">
+                                        <div class="input-field-with-icon">
+                                            <a id="btn-add-attached" class="btn-floating activator halfway-fab waves-effect waves-light green">
+                                                <i class="material-icons right">add</i>
+                                            </a>
+                                            <label>Anexos</label>
+                                        </div>
+                                        <div style="margin-top: 10px; display: flex; gap: 10px;">
+                                            <div class="file-input-container" style="display:none;">
+                                                <input type="file" id="file-meeting-attached-list" multiple accept=".png,.jpg,.jpeg,.xlsx,.xls,.docx,.pptx,.pdf,.rar,.zip,.7z,.dwg">
+                                            </div>
+                                        </div>
+                                        <div id="div-meeting-attached" class="row">
+                                        </div>
+                                    </div>
+
+                                    <!--<div class="col s12 m12 l12" style="padding-top: 15px;">
+                                        <div id="div-meeting-attached">
+                                            <div class="div-attached input-field-with-icon label">
+                                                <label>Anexos (.png,.jpg,.jpeg,.xlsx,.xls,.docx,.pptx,.pdf,.rar,.zip,.7z,.dwg)</label>
+                                                <div class="file-loading">
+                                                    <input type="file" multiple class="file-meeting-attached" name="file_meeting_attached[]"
+                                                           accept=".PNG,.png,.jpg,.jpeg,.xlsx,.xls,.docx,.pptx,.pdf,.rar,.zip,.7z,.dwg" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>-->
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <!-- Desarrollo //ANTES-->
+                <!-- <div class="col s12 m12 l6">
+                        <div class="card hoverable">
+                        <div class="card-image blue lighten-4">
+                            <div class="card-content card-content-head">
+                                <span class="card-title black-text" style="padding: 10px;margin-bottom: 0px;">
+                                    <i class="material-icons">description</i> Desarrollo
+                                </span>
+                            </div>
+                            <a id="btn-add-description" class="btn-floating activator halfway-fab waves-effect waves-light red">
+                                <i class="material-icons">add</i>
+                            </a>
+                        </div>
+                        <div class="card-content black-text card-content-body" style="padding: 10px !important;max-height: 450px">
+                            <div class="row">
+                                <div id="div-meeting-development" class="col s12">
+                                    <div class="input-field input-icon row" style=""><div class="col s1" style="width:auto;"></div><div class="col s11"><div class="input-field col s12"><textarea name="text-meeting-description" class="materialize-textarea textarea-material-normal text-meeting-description" aria-required="true"></textarea><label class="">Descripción</label></div></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 -->
+                <!-- Imágenes y anexos  //ANTES-->
+                <!-- <div class="row"> -->
+                <!-- Imágenes //ANTES-->
+                <!--
+                <div class="col s12 m12 l6">
+                    <div class="card hoverable">
+                        <div class="card-image blue lighten-4">
+                            <div class="card-content card-content-head">
+                                <span class="card-title black-text" style="padding: 10px;margin-bottom: 0px;font-size: 24px;font-weight: 300;"><i class="material-icons">image</i> Imagenes</span>
+                            </div>
+                            <a id="btn-add-description-image" class="btn-floating activator halfway-fab waves-effect waves-light red">
+                                <i class="material-icons activator">add_a_photo</i>
+                            </a>
+                        </div>
+                        <div class="card-content card-content-body div-content-dimage" style="overflow-y: auto;max-height: 450px;">
+                            <div class="row">
+                                <div id="div-meeting-dimage">
+                                    <div class="row div-dimage" style="padding-bottom: 20px;">
+                                        <div>
+                                            <div class="col s1" style="width:auto;">
+                                                <i class="material-icons prefix font-size-2rem i-delete i-delete-dimage">delete_forever</i>
+                                            </div>
+                                            <div class="col s5">
+                                                <div class="input-field">
+                                                    <i class="material-icons prefix">title</i>
+                                                    <textarea id="txt-dimage-title" class="materialize-textarea textarea-material-normal txt-meeting-dev-title"></textarea>
+                                                    <label>Título de la imagen</label>
+                                                </div>
+                                                <div class="input-field">
+                                                    <i class="material-icons prefix">description</i>
+                                                    <textarea id="txt-dimage-title" class="materialize-textarea textarea-material-normal txt-meeting-dev-description"></textarea>
+                                                    <label>Descripción de la imagen</label>
+                                                </div>
+                                            </div>
+                                            <div class="col s5">
+                                                <input type="file" accept="image/*" class="file-meetingDevImage dropify-es" data-allowed-file-extensions="png jpg jpeg" data-max-file-size="5M" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                -->
+                <!-- Anexos  //ANTES-->
+                <!-- <div class="col s12 m12 l6">
+                    <div class="card hoverable">
+                        <div class="card-image blue lighten-4">
+                            <div class="card-content card-content-head">
+                                <span class="card-title black-text" style="padding: 10px;margin-bottom: 0px;font-size: 24px;font-weight: 300;"><i class="material-icons">attach_file</i> Anexos</span>
+                            </div>
+                            <a id="btn-add-attached" class="btn-floating activator halfway-fab waves-effect waves-light red">
+                                <i class="material-icons activator">note_add</i>
+                            </a>
+                        </div>
+                        <div class="card-content card-content-body div-content-attach" style="overflow-y: auto;max-height: 450px;">
+                            <div class="row">
+                                <div id="div-meeting-attached">
+                                    <div class="row div-attached" style="padding-top: 30px;padding-bottom: 20px;">
+                                        <div>
+                                            <div class="col s1" style="width:auto;">
+                                                <i class="material-icons prefix font-size-2rem i-delete i-delete-attached">delete_forever</i>
+                                            </div>
+                                            <div class="col s5">
+                                                <div class="input-field">
+                                                    <i class="material-icons prefix">title</i>
+                                                    <textarea class="materialize-textarea textarea-material-normal txt-attach-file-title"></textarea>
+                                                    <label>Título del anexo</label>
+                                                </div>
+                                            </div>
+                                            <div class="col s5">
+                                                <input type="file" accept="*" class="file-meeting-attached" data-allowed-file-extensions="xlsx xls docx pptx pdf rar zip 7zip dwg" data-max-file-size="10M" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- Plan de acción --> <!-- AMENDEZ5 -->
+                <div class="row div-actionplan">
+                    <div class="col s12 m12 l12">
+                        <div class="card hoverable">
+                            <div class="card-image white">
+                                <div class="card-content card-content-head" style="border-bottom:1px solid #e0e6ed; margin-bottom:18px;">
+                                    <span class="card-title blue-dark-text" style="padding: 10px;margin-bottom: 0px;"><i class="material-icons">assignment</i> Plan de acción</span>
+                                </div>
+                                <a id="btn-add-action" class="btn-floating halfway-fab waves-effect waves-light green">
+                                    <i class="material-icons">add</i>
+                                </a>
+                            </div>
+                            <div class="card-content card-content-body white-text ">
+                                <div class="row">
+                                    <table id="datatable-action-plan" class="dataTable display cell-border hover order-column row-border stripe" style="width: 100%;"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Floating Action Button -->
+        <!--<div class="fixed-action-btn" style="bottom: 50px; right: 19px;">
+            <button type="submit" id="btn-insert-meeting" class="btn-floating btn-large waves-effect waves-light blue gradient-shadow">
+                <i class="material-icons">check</i>
+            </button>
+        </div>-->
+
+        <div class="fixed-action-btn guardar-reunion-btn">
+            <button type="submit" id="btn-insert-meeting" class="btn guardar-reunion-vertical waves-effect waves-light blue gradient-shadow">
+                <span class="guardar-reunion-content">
+                    <i class="material-icons guardar-reunion-icon">save</i>
+                    <span class="guardar-reunion-text guardar-reunion-guardar">Guardar</span>
+                    <span class="guardar-reunion-text guardar-reunion-reunion">Reunión</span>
+                </span>
+            </button>
+        </div>
+
+
+
+    </form>
+</div>
+
+<!-- Script render -->
+@section Scripts {
+    @Scripts.Render("~/bundles/js/MeetingRegister")
+}

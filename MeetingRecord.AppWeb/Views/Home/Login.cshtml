@@ -1,0 +1,120 @@
+﻿@{ Layout = null; }
+
+<!DOCTYPE html>
+<html lang="en">
+<!--============================================
+Description:    Login
+Author:         ANGELY YAHAYRA MENDEZ CRUZ
+Version:        1.1.0
+UpdateAt:       26/07/2025
+================================================ -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">
+    <meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">
+    <title>Login - Acta de reunión</title>
+    <!-- Favicons-->
+    <link rel="icon" href="~/Content/MeetingRecordAppWeb/img/ic_meeting_web.png" sizes="32x32">
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" href="~/Content/MeetingRecordAppWeb/img/ic_meeting_web.png">
+    <!-- For iPhone -->
+    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.html">
+    <!-- For Windows Phone -->
+    <!-- CORE CSS-->
+    <link href="~/Content/MaterialDesign/css/themes/collapsible-menu/materialize.css" type="text/css" rel="stylesheet">
+    <link href="~/Content/MaterialDesign/css/themes/collapsible-menu/style.css" type="text/css" rel="stylesheet">
+    <!-- Custome CSS-->
+    <link href="~/Content/MaterialDesign/css/custom/custom.css" type="text/css" rel="stylesheet">
+    <link href="~/Content/MaterialDesign/css/layouts/page-center.css" type="text/css" rel="stylesheet">
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <link href="~/Content/MaterialDesign/vendors/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet">
+</head>
+<body class="background-img">
+    <!--author: AMENDEZ5-->
+    <!-- Start Page Loading -->
+    <!-- <div id="loader-wrapper">
+        <div id="loader"></div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div> -->
+    <!-- End Page Loading -->
+    <div id="login-page" class="row">
+        <div class="col s12 z-depth-4 card-panel">
+            <form id="form-login" class="login-form" onsubmit="return false">
+                <div class="row">
+                    <div class="input-field col s12 center">
+                        <p class="center login-form-text">Inicio de sesión</p>
+                    </div>
+                </div>
+                <!--author: AMENDEZ5-->
+                <div class="row center">
+                    <img src="~/Content/MaterialDesign/images/sider-gerdau/logo-gerdau-vertical.png" alt="logo-siderperu" width="82" height="78">
+                    <img src="~/Content/MaterialDesign/images/sider-gerdau/logo-siderperu-vertical.png" alt="logo-siderperu" width="130" height="75">
+                </div>
+                <!--author: AMENDEZ5-->
+                <div class="div-alert-message" style="text-align: center;"></div>
+
+                <!-- Input Usuario -->
+                <div class="row margin pt-3">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix pt-5">person_outline</i>
+                        <input id="txt-username" type="text" autocomplete="off">
+                        <label for="username" class="center-align">Usuario</label>
+                    </div>
+                </div>
+                <!-- Input Password -->
+                <div class="row margin pt-3">
+                    <div class="input-field col s12" style="position: relative;">
+                        <i class="material-icons prefix pt-5">lock_outline</i>
+                        <input id="txt-password" type="password" autocomplete="off">
+
+                        <!-- Botón para mostrar/ocultar la contraseña -->
+                        <i class="material-icons visibility-icon"
+                           style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: #9e9e9e; user-select: none;">visibility_off</i>
+
+                        <label for="password">Contraseña</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <button type="submit" id="btn-login" class="btn waves-effect red waves-light col s12">INGRESAR</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- ================================================
+    Scripts
+    ================================================ -->
+    <!-- jQuery Library -->
+    <script type="text/javascript" src="~/Content/MaterialDesign/vendors/jquery-3.2.1.min.js"></script>
+    <!--materialize js-->
+    <script type="text/javascript" src="~/Content/MaterialDesign/js/materialize.min.js"></script>
+    <!--scrollbar-->
+    <script type="text/javascript" src="~/Content/MaterialDesign/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <!--plugins.js - Some Specific JS codes for Plugin Settings-->
+    <script type="text/javascript" src="~/Content/MaterialDesign/js/plugins.js"></script>
+    <!--custom-script.js - Add your own theme custom JS-->
+    <script type="text/javascript" src="~/Content/MaterialDesign/js/custom-script.js"></script>
+
+
+    @*ESTO SI ES IMPORTANTE PARA IIS PRODUCTIVO/DESARROLLO*@
+    @{
+        string ipLocal = MeetingRecord.AppWeb.Helper.HelperFunction.HelperFunction.getLocalIPAddress();
+        string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority + Request.ApplicationPath.TrimEnd('/');
+        string finalUrl = baseUrl.Replace("intsider", ipLocal);
+        <script type="text/javascript">
+            var baseUrl     = "@baseUrl";
+            var baseUrlPdf  = "@finalUrl";
+        </script>
+    }
+
+    <!-- BEGIN SCRIPT RENDER -->
+    @Scripts.Render("~/bundles/js/Login")
+    <!-- END SCRIPT RENDER -->
+</body>
+</html>

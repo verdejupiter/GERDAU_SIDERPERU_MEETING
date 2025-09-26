@@ -1,0 +1,244 @@
+﻿@{
+    ViewBag.Title = "ActionPlan";
+}
+
+<!--============================================
+Description:    Index - ActionPlan
+Author:         ANGELY YAHAYRA MENDEZ CRUZ
+Version:        1.1.0
+UpdateAt:       12/08/2025
+================================================ -->
+<!-- start container-->
+<div class="container">
+    <div class="seaction">
+        <div class="col s12 m12 l12">
+
+            <div class="row">
+                <div class="col s12 m12 l12">
+                    <div style="padding-top:10px; display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                        <div style="flex: 1; text-align: left;">
+                            <h4 class="header" style="margin: 0;">Planes de acción</h4>
+                        </div>
+                        <div style="text-align: center;">
+                            <!-- AMENDEZ5 -->
+                            <select id="ddl-meeting-scope"></select>
+                        </div>
+                    </div>
+                    <div class="card grey white">
+                        <!-- Título: Filtro-->
+                        <div class="card-image white lighten-4">
+                            <div class="card-content card-content-head" style="border-bottom:1px solid #e0e6ed; margin-bottom:8px;">
+                                <span class="card-title blue-dark-text">
+                                    <i class="material-icons prefix">filter_list</i> Filtro
+                                </span>
+                            </div>
+                        </div>
+                        <!-- Panel de búsqueda/filtros -->
+                        <div class="card-content black-text" style="padding: 0px 0px 0px 10px;">
+                            <div class="div-search-by-filter" style="padding-bottom:30px;">
+                                <div class="row" style="padding-bottom: 10px;">
+
+                                    <!-- Código de Reunión -->
+                                    <div class="col s12 m2" style="padding-top: 8px;">
+                                        <div class="input-field-with-icon">
+                                            <input id="txt-cod-reunion" type="text" class="validate" placeholder="Buscar">
+                                            <label for="txt-cod-reunion">Cod.Reunión</label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Tipo de Reunión -->
+                                    <!-- <div class="col s12 m4" style="padding-top: 8px;">
+                                        <div class="input-field-with-icon">
+                                            <select name="cbo-type-meeting" id="cbo-type-meeting" class="select-dropdown select-with-search pmd-select2 form-control">
+                                                <option value="" disabled selected>Seleccione...</option>
+                                            </select>
+                                            <label for="cbo-type-meeting">Tipo de reunión </label>
+                                        </div>
+                                    </div> -->
+                                    <!-- Área -->
+                                    <!--div class="col s12 m3" style="padding-top: 8px;">
+                                        <div class="input-field-with-icon">
+                                            <select name="cbo-area" id="cbo-area" class="select-dropdown select-with-search pmd-select2 form-control">
+                                            </select>
+                                            <label for="cbo-area">Área </label>
+                                        </div>
+                                    </div> -->
+                                    <!-- Estado -->
+                                    <div class="col s12 m3" style="padding-top: 8px;">
+                                        <div class="input-field-with-icon">
+                                            <select id="cbo-estado" class="select-dropdown select-with-search pmd-select2 form-control">
+                                                <option value="" disabled selected>Seleccionar...</option>
+                                            </select>
+                                            <label for="cbo-estado">Estado</label>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col s12 m3" style="padding-top: 8px;">
+                                        <div class="input-field-with-icon">
+                                            <select id="cbo-estado" class="select-dropdown select-with-search pmd-select2 form-control">
+                                                <option value="" disabled selected>Seleccionar...</option>
+                                                <option value="0">* Todos</option>
+                                                <option value="1">En Proceso</option>
+                                                <option value="2">Fuera de Plazo</option>
+                                                <option value="3">Cerrado</option>
+                                                <option value="4">Cerrado Fuera de Plazo</option>
+                                            </select>
+                                            <label for="cbo-estado">Estado</label>
+                                        </div>
+                                    </div> <!--
+                                    <!-- Prioridad -->
+                                    <div class="col s12 m3" style="padding-top: 8px;">
+                                        <div class="input-field-with-icon">
+                                            <select id="cbo-prioridad" class="select-dropdown select-with-search pmd-select2 form-control">
+                                                <option value="" disabled selected>Seleccionar...</option>
+                                                <option value="0">* Todos</option>
+                                                <option value="ALTA">ALTA</option>
+                                                <option value="MEDIA">MEDIA</option>
+                                                <option value="BAJA">BAJA</option>
+                                            </select>
+                                            <label for="cbo-prioridad">Prioridad</label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Categoría -->
+                                    <div class="col s12 m3" style="padding-top: 8px;">
+                                        <div class="input-field-with-icon">
+                                            <select id="txt-ap-category" name="txt-ap-category" class="browser-default" style="background-color: white !important; border: 1px solid #ccc; height: 36px;">
+                                            </select>
+                                            <label for="txt-ap-category" style="margin-bottom: 8px; display: block;">Categoría</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Fecha Inicio -->
+                                    <div class="col s12 m3" style="padding-top: 8px;">
+                                        <div class="input-field-with-icon">
+                                            <input id="txt-start-date" type="text">
+                                            <i class="material-icons suffix icon-calendar">date_range</i>
+                                            <label for="txt-start-date">Fecha Inicio</label>
+                                        </div>
+                                    </div>
+                                    <!-- Fecha Fin -->
+                                    <div class="col s12 m3" style="padding-top: 8px;">
+                                        <div class="input-field-with-icon">
+                                            <input id="txt-end-date" type="text">
+                                            <i class="material-icons suffix icon-calendar">date_range</i>
+                                            <label for="txt-end-date">Fecha Fin</label>
+                                        </div>
+                                    </div>
+                                    <!-- Responsable -->
+                                    <div class="col s12 m5" style="padding-top: 8px;">
+                                        <div class="div-responsable-field input-field-with-icon">
+                                            <input name="txt-responsable" id="txt-responsable" class="" type="text" autocomplete="off" data-userid="0" placeholder="Escribir el nombre">
+                                            <label for="txt-responsable" class="">Responsable</label>
+                                        </div>
+                                    </div>
+                                    <!-- Buscar -->
+                                    <div class="col s12 m4" style="padding-left: 10px; padding-top: 14px; padding-right: 0px; margin-right: 0px; ">
+                                        <button type="button" class="waves-effect waves-light btn blue gradient-shadow btn-filter-meeting" style="padding-left: 11px; padding-right: 13px;">
+                                            <i class="material-icons left" style="margin-right: 5px;">search</i>BUSCAR
+                                        </button>
+                                        <button type="button" class="waves-effect waves-light btn light-blue lighten-1 btn-clear-filters" style="margin-left: 0px; margin-left: 10px; padding-left: 10px; padding-right: 10px;">
+                                            LIMPIAR
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12" style="position: relative;padding-bottom: 20px;">
+                    <ul id="tabs-swipe-demo" class="tabs z-depth-1">
+                        <ul class="tabs tab-demo-active z-depth-1 blue light">
+                            <li class="tab col s2">
+                                <a id="a-tab-pending" class="waves-light waves-light white-text active" href="#tab-pending" style="padding:0px;">Pendientes</a>
+                            </li>
+                            <li class="tab col s2">
+                                <a id="a-tab-executed" class="waves-effect waves-light white-text" href="#tab-executed" style="padding:0px;">Ejecutados</a>
+                            </li>
+                        </ul>
+                    </ul>
+                    <a id="btn-export-to-excel" class="btn-floating activator halfway-fab waves-effect waves-light green"
+                       style="position: absolute; top: 10px; right: 35px; z-index: 999;">
+                        <img style="padding:8px 10px 10px 8px;" " src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFTSURBVEhL3ZW9SgNREIVXRLBX0V7wEWxs7PzBB/AZLMRWFMGHyKuInaWPYCcoVhYWCloIid8cz2Yny25ymzT5YJh7ztw5mx9IqsVnOBxujEajffoZNaAeqHePy+kLwuvEa+V4r5i+HV7UG3Ws0IznxUzb4QGvCs14VsysHYVm7BfjNZG1hmDZYD/e3k1o+rX1o/WpLpjwfOwk5hPYj8BPapPjOv2bOuS8Sn/RBZN3ulBoxr4gbBAe/cL9yqMx4ddkrSFYNtgXBP5SOxyXqC3OXxok2jttFJqxLwj8obY5LtPXqI//SUN7p41CM/YFgbfh0S/dzz0aE35N1hqCZYP9CH+mxZe6a71HW6E/ha7JO10oNGM/Ak9C0++s762PdMGE52MnMZ/AfjFeE1lrCJYN9ouZtaPQjP1ipu3wcc7vxy7CqQOFZjDn+4fTR9+DPV54quoP0j7IvZwLk/YAAAAASUVORK5CYII=">
+                    </a>
+
+                    <div id="tab-pending" class="col s12 carousel white" style="padding: 20px;overflow: auto;">
+                        <div class="card card-without-bordex">
+                            <div class="card-content white-text" style="padding: 10px;">
+                                <div class="div-alert-message"></div>
+                                <div class="table-container" style=" width: 100%; overflow: auto;">
+                                    <table id="datatable-action-plan-pending" class="dataTable display cell-border hover order-column row-border stripe" style="width: 100%;"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tab-executed" class="col s12 carousel white" style="padding: 20px;overflow: auto;">
+                        <div class="card card-without-bordex">
+                            <div class="card-content white-text" style="padding: 10px;">
+                                <div class="div-alert-message"></div>
+                                <div class="table-container" style="width: 100%; overflow: auto;">
+                                    <table id="datatable-action-plan-executed" class="dataTable display cell-border hover order-column row-border stripe" style="width: 100%;"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div class="card-reveal" style="display: none; transform: translateY(0px);">
+            <span class="card-title grey-text text-darken-4 hide-form">
+                <span class="title-type-meeting">Ejecutar Plan de acción</span>
+                <i class="material-icons right">close</i>
+            </span>
+            <div class="divider mt-1"></div>
+            <div style="padding-top: 20px;">
+                <form id="form-action-plan" onsubmit="return false">
+                    <div class="row">
+                        -->
+            <!--<div class="input-field col s12 m12 l6">
+                <input name="txt-executedesc-ap" id="txt-executedesc-ap" type="text" autocomplete="off">
+                <label for="txt-executedesc-ap" class="">Acción ejecutada</label>
+            </div>-->
+            <!--<div class="input-field col s12 m12 l3">
+                        <input name="txt-executedate-ap" id="txt-executedate-ap" type="text" autocomplete="off">
+                        <label for="txt-executedate-ap" class="">Fecha</label>
+                    </div>
+                </div>
+                                <div class="row" style="padding-top: 20px;">
+                                    <div class="div-input-file">
+                                    </div>
+
+                                    <a id="btn-add-file" class="btn-floating btn-large waves-effect grey lighten-3 gradient-shadow" style="margin-left:15px;">
+                                        <img style="padding-top: 10px;width: 35px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAL4SURBVGhD7ZpNaxNBHIeD30A8+QF8uYoHLx5stt1paQW1h1QPoh4E0WOlRcWgl0rfElHqISa7aRstTUFKlRy0JWqrJlZREURpGtQ0WFpFaZVEkowzdlp2y0zSbfOf9LA/+JGEnSXPk8nObCAOO3YqFG8s6yFNgDSe6XFjvIW9FWw88UzIG8/icvfGJHsey/ilyECJjKdz2Pfm79JrGTJQIq/n8vjDz7w8GUiRz78L8mSgRaTJyBCRIiNLBFxGpgiojGwRWhCZSojQGmU88exVhrP+QIk8SOTw41TxRpI5fJ2MpQwMZ/2BErFSW8QYW6SMtUWMsUXKWFvEGFukjLVFjLFFylhbxBiZIl0vfuHWR1F8crgbN4VbcePAWewabMaucMu0oqvHlaCyjWFZjwyRrtgCPhe5i2v7GrGiI3E19Q957Nwfqt/K8NYeaJFrEzP4yMAZPrigTh19UYK1exji2gIp0vYsjetDR7mwperU0OKB3pp9DLN0oETo1+mwYCYuj13B0eSTld6M9XDHka9aCvWh7Qy1eKBE6DXBhSP1vQpgY0YTY9xx/6uhAEMtHggRujrV9YovbCsiTk3NKcG6nQxXHAgRusTyoJZraUZIicxFhisOhMipYY8J5NKoG/sm/SuNp14yhaVMfZ8yHe+Y6DadT0SeMlxxIESahlpMIPQTt5LpH0nT+eSi/8pwxYEQWb1vbFSEzEiW4YoDIeIKnzeBbHhGdPSN4YoDIXLiXrsJhO4Txn2DghozuzhrOj74fsh0vlNX4wxXHAiR5ocRE8jqWl61dNTGcMWBEOl4Po/V4EEuFK1VkSpd3ctwxYEQoT09cosLRWttQ0QjDLV4oETorDT0H+PCtY934o/zn1ba//YOdxy9cay6jXYx1OLxAv6Fwx19l6oJNhR4kCWroQJZdg8xzMqH3oqTi3WGCyuqhhY2lcRy6K04kfGTZTTPBTeUjLmvaupudurmTHWgegcRukDvnehvDbpjk6bpPkGXWPHq5HD8A5nTwXS2WRcAAAAAAElFTkSuQmCC">
+                                    </a>
+                                </div>
+                                <div class="row div-content-btn" style="padding-top:20px;">
+                                    <div class="input-field col s12 m12 l6">
+                                        <button type="submit" id="btn-execute-action-plan" class="waves-effect waves-light btn blue gradient-shadow right" style="padding-left: 8px; padding-right: 10px;"><i class="material-icons left" style="margin-right: 5px;">save</i> Guardar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div> -->
+
+        </div>
+    </div>
+</div>
+
+<!--end container -->
+<!-- BEGIN USING -->
+@*@using System.Web.Optimization*@
+<!-- END USING -->
+<!-- BEGIN SCRIPT RENDER -->
+@section Scripts {
+    @Scripts.Render("~/bundles/js/ActionPlan")
+}
+<!-- END SCRIPT RENDER -->

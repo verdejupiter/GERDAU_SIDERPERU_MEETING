@@ -1,0 +1,371 @@
+@charset "UTF-8";
+/*!
+ * dropify-multiple - Override your input files with style. Supports mulitple file upload (modern version)
+ * @version v1.0.1
+ * @link http://github.com/brewengage/dropify-multiple
+ * @author Ravi Kannan <ravi@brewengage.com> (https://github.com/brewengage)
+ * @contributors Jeremy FAGIS <jeremy@fagis.fr> (http://fagis.fr)
+ * @contributors BrewEngage (added support for multi file upload)
+ * @license MIT
+ */
+
+/* Base de fuentes y estilos originales */
+@font-face{
+  font-family:dropify;
+  src:url(../fonts/dropify.eot);
+  src:url(../fonts/dropify.eot#iefix) format("embedded-opentype"),
+      url(../fonts/dropify.woff) format("woff"),
+      url(../fonts/dropify.ttf) format("truetype"),
+      url(../fonts/dropify.svg#dropify) format("svg");
+  font-weight:400;
+  font-style:normal
+}
+
+.dropify-font:before,
+.dropify-wrapper .dropify-message span.file-icon:before,
+[class*=" dropify-font-"]:before,
+[class^=dropify-font-]:before {
+    font-family: dropify;
+    font-style: normal;
+    font-weight: 400;
+    speak: none;
+    display: inline-block;
+    text-decoration: inherit;
+    width: 1em;
+    margin-left: .2em;
+    margin-right: .2em;
+    text-align: center;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1em
+}
+
+.dropify-font-upload:before,
+.dropify-wrapper .dropify-message span.file-icon:before{
+  content:'\e800'
+}
+
+.dropify-font-file:before{
+  content:'\e801'
+}
+
+/* Estilos modernos para el contenedor principal */
+.dropify-wrapper {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  min-height: 150px;
+  padding: 20px;
+  font-family: Roboto, "Helvetica Neue", Helvetica, Arial;
+  font-size: 14px;
+  line-height: 22px;
+  color: #777;
+  background-color: #f7f9fc;
+  background-image: none;
+  text-align: center;
+  border: 2px dashed #e0e4e8;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.dropify-wrapper:hover {
+  background-color: #f0f3f9;
+  border-color: #bdc8db;
+}
+
+/* Mejoras visuales para los estados */
+.dropify-wrapper.has-error {
+  border-color: #ff5252;
+  background-color: #fff8f8;
+}
+
+.dropify-wrapper.has-preview {
+  border-style: solid;
+  border-color: #e0e4e8;
+  background-color: #fff;
+}
+
+/* Estilo para el mensaje principal */
+.dropify-wrapper .dropify-message {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.dropify-wrapper .dropify-message span.file-icon {
+  font-size: 42px;
+  color: #4a6bf5;
+  opacity: 0.7;
+}
+
+.dropify-wrapper .dropify-message p {
+  margin: 10px 0 0 0;
+  font-size: 15px;
+  color: #666;
+}
+
+/* Estilo para el contador de archivos */
+.dropify-wrapper .dropify-file-counter {
+  position: absolute;
+  top: 10px;
+  left: 15px;
+  color: #4a6bf5;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Estilos para el botón de subir archivos */
+.dropify-wrapper .dropify-upload-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background-color: #4a6bf5;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.dropify-wrapper .dropify-upload-btn:hover {
+  background-color: #3951d6;
+  transform: translateY(-1px);
+}
+
+.dropify-wrapper .dropify-upload-btn i {
+  margin-right: 5px;
+}
+
+/* Estilos para el mensaje de error */
+.dropify-wrapper .dropify-error {
+  color: #ff5252;
+  font-weight: 500;
+  display: none;
+}
+
+.dropify-wrapper.has-error .dropify-error {
+  display: block;
+}
+
+/* Estilos para el botón de eliminar */
+.dropify-wrapper .dropify-clear {
+  display: none;
+  position: absolute;
+  opacity: 0;
+  z-index: 7;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  color: #666;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  line-height: 26px;
+  text-align: center;
+  transition: all 0.15s linear;
+}
+
+.dropify-wrapper .dropify-clear:hover {
+  background: #f1f1f1;
+  color: #ff5252;
+}
+
+.dropify-wrapper:hover .dropify-clear {
+  opacity: 1;
+}
+
+.dropify-wrapper.has-preview .dropify-clear {
+  display: block;
+}
+
+/* Estilo para la previsualización */
+.dropify-wrapper .dropify-preview {
+  display: none;
+  position: relative;
+  z-index: 1;
+  background-color: #fff;
+  padding: 5px;
+  width: 100%;
+  height: 100%;
+  min-height: 100px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* Contenedor para archivos múltiples */
+.dropify-wrapper .dropify-preview .dropify-render .dropify-multiple-files {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.dropify-wrapper .dropify-preview .dropify-render .dropify-multiple-file-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #f7f9fc;
+  border-radius: 8px;
+  border: 1px solid #e0e4e8;
+  transition: all 0.2s ease;
+  position: relative;
+  text-align: left;
+}
+
+.dropify-wrapper .dropify-preview .dropify-render .dropify-multiple-file-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
+  border-color: #bdc8db;
+}
+
+.dropify-wrapper .dropify-preview .dropify-render .dropify-multiple-file-item img {
+  width: 36px;
+  height: 36px;
+  margin-right: 12px;
+  object-fit: contain;
+}
+
+.dropify-wrapper .dropify-preview .dropify-render .dropify-multiple-file-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 110px);
+}
+
+.dropify-wrapper .dropify-preview .dropify-render .dropify-multiple-file-size {
+  font-size: 12px;
+  color: #8a94a6;
+  margin-top: 2px;
+}
+
+.dropify-wrapper .dropify-preview .dropify-render .dropify-multiple-file-remove {
+  position: absolute;
+  right: 10px;
+  border: none;
+  background-color: #ff5252;
+  color: white;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  font-size: 14px;
+  line-height: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: all 0.2s ease;
+}
+
+.dropify-wrapper .dropify-preview .dropify-render .dropify-multiple-file-remove:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.dropify-wrapper .dropify-preview .dropify-render .dropify-multiple-file-actions {
+  display: flex;
+  gap: 5px;
+}
+
+/* Estado de carga */
+.dropify-wrapper .dropify-loader {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: none;
+  z-index: 9;
+}
+
+.dropify-wrapper .dropify-loader::after {
+  display: block;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  animation: rotate 0.6s linear infinite;
+  border-radius: 100%;
+  border: 2px solid #4a6bf5;
+  border-top-color: transparent;
+  content: '';
+}
+
+/* Estado vacío */
+.dropify-wrapper .dropify-empty-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 120px;
+  color: #8a94a6;
+}
+
+.dropify-wrapper .dropify-empty-icon {
+  font-size: 48px;
+  margin-bottom: 10px;
+  color: #bdc8db;
+}
+
+.dropify-wrapper .dropify-empty-text {
+  font-size: 15px;
+  margin: 0;
+}
+
+/* Soporte para dispositivos táctiles */
+.dropify-wrapper.touch-fallback {
+  height: auto !important;
+}
+
+/* Animaciones */
+@keyframes stripes {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 60px 30px;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotateZ(-360deg);
+  }
+  100% {
+    transform: rotateZ(0);
+  }
+}
+
+/* Responsividad */
+@media (max-width: 576px) {
+  .dropify-wrapper .dropify-message span.file-icon {
+    font-size: 32px;
+  }
+  
+  .dropify-wrapper .dropify-message p {
+    font-size: 14px;
+  }
+  
+  .dropify-wrapper .dropify-preview .dropify-render .dropify-multiple-file-name {
+    max-width: 180px;
+  }
+}

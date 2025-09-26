@@ -1,0 +1,412 @@
+﻿<!--============================================
+Description:    Vista de edición de acta de reunión
+Author:         ANGELY YAHAYRA MENDEZ CRUZ
+Version:        1.1.1
+UpdateAt:       11/09/2025
+================================================ -->
+
+@using Microsoft.AspNet.Identity
+@model MeetingRecord.AppWeb.Models.Model.M_Meeting
+
+@{
+    int userRole = ViewBag.UserRole ?? 0;
+    string currentUserId = ViewBag.UserId?.ToString() ?? "";
+    string createdByUserId = Model.dtsMeeting.Tables[0].Rows[0]["RegisteredByUserId"].ToString();
+    bool isAdmin = userRole == 1 || userRole == 2;
+    bool isCreator = createdByUserId == currentUserId;
+    bool canEdit = isAdmin || isCreator;
+    bool isAssistant = userRole == 0 && !isCreator;
+}
+
+<div class="container">
+    <form id="form-meeting" onsubmit="return false">
+        <div class="seaction">
+            <div class="col s12 m12 l12" style="padding-top: 20px;">
+                <div style="flex: 1; text-align: left;">
+                    <h4 class="header" style="margin: 0; margin-left: 8px;">Editar Acta de Reunión</h4>
+                </div>
+                <!-- Información y asistencia -->
+                <div class="row">
+
+                    <!-- Información -->
+                    <div class="col s12 m12 l7 div-info-meeting">
+                        <div class="card grey white hoverable" style="min-height: 431px;">
+                            <div class="card-image">
+                                <div class="card-content card-content-head" style="border-bottom:1px solid #e0e6ed; margin-bottom:18px;">
+                                    <span class="card-title blue-dark-text">
+                                        <i class="material-icons">info</i>
+                                        <span>Datos Generales</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="card card-without-bordex">
+                                <div class="card-content black-text" style="padding-right: 0px !important; padding-left: 0px !important; padding-top: 5px !important; ">
+                                    <div class="row row-adjust">
+                                        <!-- Código de Reunión -->
+                                        <div class="col s12 m3" style="padding-top: 8px; padding-right: 0rem !important">
+                                            <div class="input-field-with-icon">
+                                                <input type="text" id="txt-meeting-code" name="txt-meeting-code" value="@Model.dtsMeeting.Tables[0].Rows[0]["MeetingCode"]" readonly>
+                                                <label for="txt-meeting-code">Cod.Reunión</label>
+                                            </div>
+                                        </div>
+                                        <!-- Área -->
+                                        <div class="col s12 m5" style="padding-top: 8px;">
+                                            <div class="input-field-with-icon">
+                                                <select name="cbo-area" id="cbo-area" class="select-dropdown select-with-search pmd-select2 form-control" @(isAssistant ? "disabled" : "")>
+                                                </select>
+                                                <label for="cbo-area">Área <span style="color: #F44336; font-weight: bold;">*</span></label>
+                                            </div>
+                                        </div>
+                                        <!--!-- Célula --> <!-- AMENDEZ5 -->
+                                        <div class="col s12 m4" style="padding-top: 8px;">
+                                            <div class="input-field-with-icon">
+                                                <select name="cbo-cell" id="cbo-cell" class="select-dropdown select-with-search pmd-select2 form-control" @(isAssistant ? "disabled" : "")>
+                                                </select>
+                                                <label for="cbo-cell">Célula</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row row-adjust">
+                                        <!-- Día -->
+                                        <div class="col s12 m4" style="padding-top: 25px;">
+                                            <div class="input-field-with-icon">
+                                                <input type="text" id="txt-meeting-date" name="txt-meeting-date" value="@Model.dtsMeeting.Tables[0].Rows[0]["MeetingDate"]" @(isAssistant ? "disabled" : "")>
+                                                <label for="txt-meeting-date">Día <span style="color: #F44336; font-weight: bold;">*</span></label>
+                                                <i class="material-icons suffix icon-calendar">date_range</i>
+                                            </div>
+                                        </div>
+                                        <!-- Hora de Inicio -->
+                                        <div class="col s12 m4" style="padding-top: 25px;">
+                                            <div class="input-field-with-icon">
+                                                <i class="material-icons suffix icon-clock">access_time</i>
+                                                <input type="text" id="txt-meeting-start-time" name="txt-meeting-start-time" value="@Model.dtsMeeting.Tables[0].Rows[0]["MeetingStartTime24h"]" @(isAssistant ? "disabled" : "")>
+                                                <label for="txt-meeting-start-time">Hora de Inicio <span style="color: #F44336; font-weight: bold;">*</span></label>
+                                            </div>
+                                            <div id="txt-meeting-start-time-error" class="error2"></div>
+                                        </div>
+                                        <!-- Hora de Fin -->
+                                        <div class="col s12 m4" style="padding-top: 25px;">
+                                            <div class="input-field-with-icon">
+                                                <i class="material-icons suffix icon-clock">access_time</i>
+                                                <input type="text" id="txt-meeting-end-time" name="txt-meeting-end-time" value="@Model.dtsMeeting.Tables[0].Rows[0]["MeetingEndTime24h"]" @(isAssistant ? "disabled" : "")>
+                                                <label for="txt-meeting-end-time" class="campo-obligatorio">Hora de Fin <span style="color: #F44336; font-weight: bold;">*</span></label>
+                                            </div>
+                                            <div id="txt-meeting-end-time-error" class="error2"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row row-adjust">
+                                        <!-- Tipo de Reunión -->
+                                        <div class="col s12 m8" style="padding-top: 25px;">
+                                            <div class="input-field-with-icon">
+                                                <select name="cbo-type-meeting" id="cbo-type-meeting" class="select-dropdown select-with-search pmd-select2 form-control" @(isAssistant ? "disabled" : "")>
+                                                </select>
+                                                <label for="cbo-type-meeting">Tipo de reunión <span style="color: #F44336; font-weight: bold;">*</span></label>
+                                            </div>
+                                        </div>
+                                        <!-- Lugar location -->
+                                        <div class="col s12 m4" style="padding-top: 25px;">
+                                            <div class="input-field-with-icon">
+                                                <select id="txt-meeting-location" name="txt-meeting-location" class="select-dropdown select-with-search pmd-select2 form-control" @(isAssistant ? "disabled" : "")></select>
+                                                <label for="txt-meeting-location">Lugar <span style="color: #F44336; font-weight: bold;">*</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row row-adjust">
+                                        <!-- Nombre de reunión --> <!-- AMENDEZ5 -->
+                                        <div class="col s12 m12" style="padding-top: 25px;">
+                                            <div class="input-field-with-icon">
+                                                <input type="text" id="txt-meeting-subject" name="txt-meeting-subject" autocomplete="off" placeholder="Escribir nombre de reunión" value="@Model.dtsMeeting.Tables[0].Rows[0]["MeetingSubject"]" @(isAssistant ? "disabled" : "")>
+                                                <label for="txt-meeting-subject">Nombre de reunión <span style="color: #F44336; font-weight: bold;">*</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Asistencia -->
+                    <div class="col s12 m12 l5">
+                        <div class="card grey white hoverable">
+                            <div class="card-image lighten-4">
+                                <div class="card-content card-content-head" style="border-bottom: 1px solid #e0e6ed; margin-bottom: 18px; display: flex; gap: 10px;">
+                                    <span class="card-title blue-dark-text" style="padding: 10px;margin-bottom: 0px;">
+                                        <i class="material-icons">group</i> Asistentes
+                                    </span>
+                                    @if (canEdit)
+                                    {
+                                        <button type="button" id="btn-delete-assistance"
+                                                class="waves-effect waves-light btn red lighten-1 gradient-shadow left" style="padding-left: 8px; padding-right: 10px; display:none; position:absolute; right: 90px; bottom: -18px; margin-bottom: 0px; margin-top: 0px; ">
+                                            <i class="material-icons left" style="margin-right: 5px;">delete</i> Eliminar
+                                        </button>
+                                        <a id="btn-add-guest" class="btn-floating halfway-fab waves-effect waves-light green">
+                                            <i class="material-icons">add</i>
+                                        </a>
+                                    }
+                                </div>
+                            </div>
+                            <div class="card-content white-text card-content-body card-content-assistance" style="padding: 10px 20px 10px 20px !important;">
+                                <table id="datatable-user-assistance" class="dataTable display cell-border hover order-column row-border stripe" style="width: 100%; margin-bottom: 20px;">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Opcionales -->
+                <div class="row ">
+                    <div class="col s12 m12 l12">
+                        <div class="card hoverable">
+                            <div class="card-image white lighten-4" style="position: relative;">
+                                <div class="card-content card-content-head" style="border-bottom:1px solid #e0e6ed; margin-bottom:18px; display: flex; justify-content: space-between; align-items: center;" id="opcionales-header">
+                                    <span class="card-title blue-dark-text" style="padding: 10px;margin-bottom: 0px;">
+                                        <i class="material-icons">format_list_bulleted</i> <span>Opcionales</span>
+                                    </span>
+                                    <button type="button" id="btn-toggle-opcionales" class="btn-flat" style="min-width: 36px;">
+                                        <i id="icon-toggle-opcionales" class="material-icons">expand_more</i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="opcionales-content" class="card-content black-text card-content-body" style="min-height:150PX !important; padding-top: 10px !important; display: none;">
+                                <div class="row">
+                                    <!-- Agenda y Comentarios en la misma fila -->
+                                    <div class="col s12 m12 l6" style="padding-top: 10px !important;">
+                                        <div id="div-meeting-pauta" class="input-field-with-icon">
+                                            @if (canEdit)
+                                            {
+                                                <a id="btn-add-pauta" class="btn-floating activator halfway-fab waves-effect waves-light green" style="bottom: 20px !important; right: 0px !important;">
+                                                    <i class="material-icons">add</i>
+                                                </a>
+                                            }
+                                            <textarea name="text-meeting-pauta" class="text-meeting-pauta" type="text" autocomplete="off" aria-required="true" placeholder="Escribir la agenda" @(isAssistant ? "disabled" : "")></textarea>
+                                            <label>Agenda</label>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 m12 l6" style="padding-top: 10px !important;">
+                                        <div id="div-meeting-development" class="input-field-with-icon">
+                                            @if (canEdit)
+                                            {
+                                                <a id="btn-add-description" class="btn-floating activator halfway-fab waves-effect waves-light green" style="bottom: 20px !important; right: 0px !important;">
+                                                    <i class="material-icons">add</i>
+                                                </a>
+                                            }
+                                            <textarea name="text-meeting-description" class="text-meeting-description" type="text" autocomplete="off" aria-required="true" placeholder="Escribir comentarios" @(isAssistant ? "disabled" : "")></textarea>
+                                            <label>Comentarios</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--<div class="row">-->
+                                <!-- Anexos en una fila aparte -->
+                                <!-- <div class="col s12 m12 l12" style="padding-top: 15px;">
+                                <div id="div-meeting-attached">
+                                    <div class="div-attached input-field-with-icon label">
+                                        <label>Anexos (.png,.jpg,.jpeg,.xlsx,.xls,.docx,.pptx,.pdf,.rar,.zip,.7z,.dwg)</label>
+                                        <input type="file" multiple accept="*" class="file-meeting-attached"
+                                               data-allowed-file-extensions="png jpg jpeg xlsx xls docx pptx pdf rar zip 7zip dwg"
+                                               data-max-file-size="15M" @(canEdit ? "" : "disabled") />
+                                    </div>
+
+                                    <!-- Lista de archivos existentes (para referencia en JS) -->
+                                <!--<div id="existing-attachments" style="display:none;">
+                                                @if (Model.dtsAttachFile != null && Model.dtsAttachFile.Tables.Count > 0 && Model.dtsAttachFile.Tables[0].Rows.Count > 0)
+                                                {
+                                                    foreach (System.Data.DataRow row in Model.dtsAttachFile.Tables[0].Rows)
+                                                    {
+                                                        <div class="attachment-info"
+                                                             data-filename="@row["AttachFileName"]"
+                                                             data-extension="@row["AttachFileExtension"]"
+                                                             data-filepath="@row["AttachFilePath"]"
+                                                             data-filecode="@row["AttachFileCode"]"
+                                                             data-filetitle="@row["AttachFileTitle"]">
+                                                        </div>
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Plan de acción -->
+                <div class="row div-actionplan">
+                    <div class="col s12 m12 l12">
+                        <div class="card hoverable">
+                            <div class="card-image white">
+                                <div class="card-content card-content-head" style="border-bottom:1px solid #e0e6ed; margin-bottom:18px;">
+                                    <span class="card-title blue-dark-text" style="padding: 10px;margin-bottom: 0px;"><i class="material-icons">assignment</i> Plan de acción</span>
+                                </div>
+                                <a id="btn-add-action" class="btn-floating halfway-fab waves-effect waves-light green">
+                                    <i class="material-icons">add</i>
+                                </a>
+                            </div>
+                            <div class="card-content card-content-body white-text ">
+                                <div class="row">
+                                    <table id="datatable-action-plan" class="dataTable display cell-border hover order-column row-border stripe" style="width: 100%;"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Floating Action Button -->
+        @if (canEdit || isAssistant)
+        {
+            <div class="fixed-action-btn guardar-reunion-btn">
+                <button type="submit" id="btn-edit-meeting" class="btn guardar-reunion-vertical waves-effect waves-light blue gradient-shadow">
+                    <span class="guardar-reunion-content">
+                        <i class="material-icons guardar-reunion-icon">save</i>
+                        <span class="guardar-reunion-text guardar-reunion-guardar">Guardar</span>
+                        <span class="guardar-reunion-text guardar-reunion-reunion">Reunión</span>
+                    </span>
+                </button>
+            </div>
+        }
+    </form>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/js/MeetingEdit")
+    <script>
+            window.CanEdit = @(canEdit ? "true" : "false");
+            window.MeetingCreatedByUserId = '@Model.dtsMeeting.Tables[0].Rows[0]["RegisteredByUserId"]';
+            window.UserId = '@(ViewBag.UserId?.ToString() ?? "")';
+            window.UserRole = @userRole;
+            window.IsAdmin = @(isAdmin ? "true" : "false");
+            window.IsCreator = @(isCreator ? "true" : "false");
+            window.IsAssistant = @(isAssistant ? "true" : "false");
+    </script>
+
+    <script>
+                @{
+                    string meetingCode          = Model.dtsMeeting.Tables[0].Rows[0]["MeetingCode"].ToString();
+                    string typeMeetingCode      = Model.dtsMeeting.Tables[0].Rows[0]["TypeMeetingCode"].ToString();
+                    int areaId                  = Convert.ToInt16(Model.dtsMeeting.Tables[0].Rows[0]["AreaId"]);
+                    <!-- 21/8 -->
+            int cellId = Convert.ToInt16(Model.dtsMeeting.Tables[0].Rows[0]["CellId"]);
+            string meetingSubject = Model.dtsMeeting.Tables[0].Rows[0]["MeetingSubject"].ToString();
+            string meetingLocation = Model.dtsMeeting.Tables[0].Rows[0]["LocationCode"].ToString();
+            string meetingDate = Model.dtsMeeting.Tables[0].Rows[0]["MeetingDate"].ToString();
+            string meetingStartTime24h = Model.dtsMeeting.Tables[0].Rows[0]["MeetingStartTime24h"].ToString();
+            string meetingEndTime24h = Model.dtsMeeting.Tables[0].Rows[0]["MeetingEndTime24h"].ToString();
+
+            var guideDescriptions = new List<string>();
+            if (Model.dtsGuide != null && Model.dtsGuide.Tables.Count > 0 && Model.dtsGuide.Tables[0].Rows.Count > 0)
+            {
+                foreach (System.Data.DataRow row in Model.dtsGuide.Tables[0].Rows)
+                {
+                    guideDescriptions.Add(row["GuideDescription"]?.ToString() ?? "");
+                }
+            }
+
+            var meetingDescriptions = new List<string>();
+            if (Model.dtsMeetingDev != null && Model.dtsMeetingDev.Tables.Count > 0 && Model.dtsMeetingDev.Tables[0].Rows.Count > 0)
+            {
+                foreach (System.Data.DataRow row in Model.dtsMeetingDev.Tables[0].Rows)
+                {
+                    meetingDescriptions.Add(row["MeetingDevDescription"]?.ToString() ?? "");
+                }
+            }
+    }
+
+    var local_meetingCode         = "@meetingCode";
+    var local_typeMeetingCode     = "@typeMeetingCode";
+    var local_areaId = @areaId;
+    // 21/8
+    var local_cellId= @cellId;
+    var local_meetingSubject      = "@Html.Raw(meetingSubject)";
+    var local_meetingLocation     = "@Html.Raw(meetingLocation)";
+    var local_meetingDate         = "@meetingDate";
+    var local_meetingStartTime24h = "@meetingStartTime24h";
+    var local_meetingEndTime24h   = "@meetingEndTime24h";
+    var userRole = @userRole;
+    var local_meeting_pautas = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(guideDescriptions));
+    var local_meeting_descriptions = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(meetingDescriptions));
+
+    // Asistentes
+    var arrayUserAssistance = [];
+    @foreach (System.Data.DataRow uAssistanceDataRow in Model.dtsUserAssistance.Tables[0].Rows)
+    {
+        string userId = uAssistanceDataRow["UserId"].ToString();
+        string userName = uAssistanceDataRow["UserName"].ToString();
+        string areaName = uAssistanceDataRow["AreaName"].ToString();
+        string enterpriseName = uAssistanceDataRow["EnterpriseName"].ToString();
+        string userAssistanceGuest = uAssistanceDataRow["UserAssistanceGuest"].ToString();
+        string userAssistanceGuestDesc = uAssistanceDataRow["UserAssistanceGuestDesc"].ToString();
+        string userAssistanceGuestEmail = uAssistanceDataRow["UserAssistanceGuestEmail"].ToString();
+        string userAssistanceStatus = uAssistanceDataRow["UserAssistanceStatus"].ToString();
+        string userAssistanceJustification = uAssistanceDataRow["UserAssistanceJustification"].ToString();
+        string userAssistanceReasonJustification = uAssistanceDataRow["UserAssistanceReasonJustification"].ToString();
+        string cellName = uAssistanceDataRow["CellName"].ToString();
+        string userAssistanceDelay = uAssistanceDataRow["UserAssistanceDelay"].ToString();
+
+        @:var objUserAssistance = {};
+        @:objUserAssistance.UserId = "@userId";
+        @:objUserAssistance.UserName = "@Html.Raw(userName)";
+        @:objUserAssistance.AreaName = "@Html.Raw(areaName)";
+        @:objUserAssistance.EnterpriseName = "@Html.Raw(enterpriseName)";
+        @:objUserAssistance.UserAssistanceGuest = "@Html.Raw(userAssistanceGuest)";
+        @:objUserAssistance.UserAssistanceGuestDesc = "@Html.Raw(userAssistanceGuestDesc.Replace("\r\n", "<br/>").Replace("\n", "<br/>").Replace("\r", "<br/>").Replace("\"", "\\\""))";
+        @:objUserAssistance.UserAssistanceGuestEmail = "@Html.Raw(userAssistanceGuestEmail)";
+        @:objUserAssistance.UserAssistanceStatus = "@userAssistanceStatus";
+        @:objUserAssistance.UserAssistanceJustification = "@userAssistanceJustification";
+        @:objUserAssistance.UserAssistanceReasonJustification = "@userAssistanceReasonJustification";
+        @:objUserAssistance.CellName = "@Html.Raw(cellName)";
+        @:objUserAssistance.UserAssistanceDelay = "@userAssistanceDelay";
+        @:arrayUserAssistance.push(objUserAssistance);
+    }
+
+    var arrayActionPlan = [];
+    @foreach (System.Data.DataRow actionPlanDataRow in Model.dtsActionPlan.Tables[0].Rows)
+    {
+        string actionPlanExecutedDate = actionPlanDataRow["ActionPlanExecutedDate"].ToString();
+        if (actionPlanExecutedDate == "")
+        {
+            string actionPlanCode = actionPlanDataRow["ActionPlanCode"].ToString();
+            string actionPlanWhat = actionPlanDataRow["ActionPlanWhat"].ToString();
+            string responsibleUserId = actionPlanDataRow["ResponsibleUserId"].ToString();
+            string responsibleUserName = actionPlanDataRow["ResponsibleUserName"].ToString();
+            string actionPlanScheduledDate = actionPlanDataRow["ActionPlanScheduledDate"].ToString();
+            string actionPlanCategoryId = actionPlanDataRow.Table.Columns.Contains("ActionPlanCategoryId") ? actionPlanDataRow["ActionPlanCategoryId"].ToString() : "";
+            string actionPlanCategoryName = actionPlanDataRow.Table.Columns.Contains("ActionPlanCategoryName") ? actionPlanDataRow["ActionPlanCategoryName"].ToString() : "";
+            string actionPlanPriority = actionPlanDataRow.Table.Columns.Contains("ActionPlanPriority") ? actionPlanDataRow["ActionPlanPriority"].ToString() : "";
+            string actionPlanStatus = actionPlanDataRow.Table.Columns.Contains("ActionPlanStatus") ? actionPlanDataRow["ActionPlanStatus"].ToString() : "1";
+
+            @:var objActionPlan = {};
+            @:objActionPlan.ActionPlanCode = "@actionPlanCode";
+            @:objActionPlan.ActionPlanWhat = "@Html.Raw(actionPlanWhat.Replace("\r\n", "<br/>").Replace("\n", "<br/>").Replace("\r", "<br/>").Replace("\"", "\\\""))";
+            @:objActionPlan.ResponsibleUserId = "@responsibleUserId";
+            @:objActionPlan.ResponsibleUserName = "@Html.Raw(responsibleUserName)";
+            @:objActionPlan.ActionPlanScheduledDate = "@actionPlanScheduledDate";
+            @:objActionPlan.ActionPlanCategoryId = "@actionPlanCategoryId";
+            @:objActionPlan.ActionPlanCategoryName = "@Html.Raw(actionPlanCategoryName)";
+            @:objActionPlan.ActionPlanPriority = "@actionPlanPriority";
+            @:objActionPlan.ActionPlanStatus = "@actionPlanStatus";
+            @:arrayActionPlan.push(objActionPlan);
+        }
+    }
+
+    </script>
+
+    <script>
+    @{
+        var anexos = new List<object>();
+        if (Model.dtsAttachFile != null && Model.dtsAttachFile.Tables.Count > 0)
+        {
+            foreach (System.Data.DataRow row in Model.dtsAttachFile.Tables[0].Rows)
+            {
+                anexos.Add(new {
+                    AttachFileCode = row["AttachFileCode"].ToString(),
+                    AttachFileName = row["AttachFileName"].ToString(),
+                    AttachFileExtension = row["AttachFileExtension"].ToString(),
+                    AttachFileTitle = row["AttachFileTitle"].ToString(),
+                    AttachFilePath = row["AttachFilePath"].ToString()
+                });
+            }
+        }
+    }
+    var local_attachFiles = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(anexos));
+    </script>
+
+}

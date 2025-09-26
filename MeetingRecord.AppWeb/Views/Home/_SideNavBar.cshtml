@@ -1,0 +1,126 @@
+﻿@model List<MeetingRecord.AppWeb.Models.Model.M_Menu>
+@using System.Linq
+
+<aside id="left-sidebar-nav" class="nav-expanded nav-lock">
+    <!-- CABECERA CON LOGO Y TÍTULO -->
+    <div class="brand-sidebar materialize-red">
+            <!--<h1 class="logo-wrapper">-->
+            <a href="~/MeetingRegister">
+                <h1 class="sidebar-title white-text">GESTIÓN DE TAREAS Y ACTAS DE REUNIÓN</h1>
+            </a>
+            <a href="~/MeetingRegister">
+                <img src="~/Content/MeetingRecordAppWeb/img/ic_meeting_web.png" alt="logo-meeting" style="width: 60px; height: 60px; margin-top: 8px;">
+            </a>
+            <!--<a href="#" class="navbar-toggler">
+                <i class="material-icons">radio_button_checked</i>
+            </a-->
+            <!--</h1>-->
+    </div>
+    <ul id="slide-out" class="side-nav fixed leftside-navigation">
+        <!-- SECCIÓN PRINCIPAL (PARA TODOS) -->
+        <div class="sidebar-section white-text">PRINCIPAL</div>
+        @foreach (var item in Model)
+        {
+            if (item != null && item.MenuId != "menu-type-meeting" && item.MenuId != "menu-users" && item.MenuId != "menu-lugar" && item.MenuId != "menu-category" && item.MenuId != "profile-logout")
+            {
+                var active = item.MenuActive != null ? "active" : "";
+                <li class="no-padding">
+                    <a href="~/@item.MenuUrl" id="@item.MenuId" class="menu-item @item.MenuClass @active">
+                        <i class="material-icons md-light">@item.MenuIcon</i>
+                        <span class="nav-text white-text">@item.MenuName</span>
+                    </a>
+                </li>
+            }
+        }
+        <!-- SECCIÓN MANTENIMIENTO (SOLO ADMIN, userRole == 1) -->
+        @{
+            var mantenimientoItems = new List<MeetingRecord.AppWeb.Models.Model.M_Menu>();
+            foreach (var m in Model)
+            {
+                if (m != null && (m.MenuId == "menu-type-meeting" || m.MenuId == "menu-users" || m.MenuId == "menu-lugar" || m.MenuId == "menu-category"))
+                {
+                    mantenimientoItems.Add(m);
+                }
+            }
+            if (mantenimientoItems.Count > 0)
+            {
+                <div class="sidebar-section white-text">MANTENIMIENTO</div>
+                foreach (var item in mantenimientoItems)
+                {
+                    var active = item.MenuActive != null ? "active" : "";
+                    <li class="no-padding">
+                        <a href="~/@item.MenuUrl" id="@item.MenuId" class="menu-item @item.MenuClass @active">
+                            <i class="material-icons md-light">@item.MenuIcon</i>
+                            <span class="nav-text white-text">@item.MenuName</span>
+                        </a>
+                    </li>
+                }
+            }
+        }
+    <!-- CERRAR SESIÓN -->
+    <div class="sidebar-footer">
+        @foreach (var item in Model)
+        {
+            if (item != null && item.MenuId == "profile-logout")
+            {
+                <a href="~/@item.MenuUrl" id="@item.MenuId" class="menu-item logout white-text">
+                    <i class="material-icons md-light">@item.MenuIcon</i>
+                    <span>@item.MenuName</span>
+                </a>
+            }
+        }
+    </div>
+    </ul>
+    <!--
+        @foreach (var item in Model)
+        {
+            if (item != null)
+            {
+                var active = item.MenuActive != null ? "active" : "";
+                <li class="no-padding">
+                    <ul class="collapsible" data-collapsible="accordion">
+                        <li class="bold @item.MenuActive">
+
+                            @if (item.MenuUrl != "javascript:void(0);")
+                            {
+                                <a href="~/@item.MenuUrl" id="@item.MenuId" class="@item.MenuClass @active ">
+                                    <i class="material-icons md-light">@item.MenuIcon</i>
+                                    <span class="nav-text white-text">@item.MenuName</span>
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="@item.MenuUrl" id="@item.MenuId" class="@item.MenuClass @active ">
+                                    <i class="material-icons md-light">@item.MenuIcon</i>
+                                    <span class="nav-text white-text">@item.MenuName</span>
+                                </a>
+                            }
+
+
+                            @if (item.MenuChild != null)
+                            {
+                                <div class="collapsible-body" style="padding-left: 20px;">
+                                    <ul>
+                                        @foreach (var itemChild in item.MenuChild)
+                                        {
+                                            <li class="@itemChild.MenuActive">
+                                                <a href="~/@itemChild.MenuUrl" id="@itemChild.MenuId" class="@itemChild.MenuClass">
+                                                    <i class="material-icons md-light">@itemChild.MenuIcon</i>
+                                                    <span>@itemChild.MenuName</span>
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
+                        </li>
+                    </ul>
+                </li>
+            }
+        }
+    -->
+
+    <a href="#" data-activates="slide-out" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only gradient-45deg-red gradient-shadow">
+        <i class="material-icons materialize-red">menu</i>
+    </a>
+</aside>

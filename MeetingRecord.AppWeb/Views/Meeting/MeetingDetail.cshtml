@@ -1,0 +1,481 @@
+﻿<!--============================================
+Description:    Vista de acta de reunión
+Author:         ANGELY YAHAYRA MENDEZ CRUZ
+Version:        1.1.1
+UpdateAt:       27/08/2025
+================================================ -->
+
+@{ Layout = null; }
+@model MeetingRecord.AppWeb.Models.Model.M_Meeting
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Acta de reunión</title>
+    <!-- Favicons-->
+    <link rel="icon" href="~/Content/MeetingRecordAppWeb/img/ic_meeting_web.png" sizes="32x32">
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" href="~/Content/MeetingRecordAppWeb/img/ic_meeting_web.png">
+    <!-- CORE CSS-->
+    <link href="~/Content/MaterialDesign/css/themes/collapsible-menu/materialize.css" type="text/css" rel="stylesheet">
+    <link href="~/Content/MaterialDesign/css/themes/collapsible-menu/style.css" type="text/css" rel="stylesheet">
+    <!-- My css -->
+    <link href="~/Content/MeetingRecordAppWeb/mr-appweb.min.css" type="text/css" rel="stylesheet">
+    <link href="~/Content/MeetingRecordAppWeb/meeting-detail.css" type="text/css" rel="stylesheet">
+
+    <!-- BEGIN STYLES RENDER -->
+    @Styles.Render("~/bundles/css/MaterialDesign")
+    @Styles.Render("~/bundles/css/Datatable")
+    <!-- BEGIN STYLES RENDER -->
+
+    <style>
+        table tr td {
+            border-top: 1px solid #dddddd !important;
+            border-bottom: 1px solid #dddddd !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Descargar PDF -->
+    <div class="row" style="width: 21cm;background:#ffffff;padding:10px 5px 5px 5px;margin-top:10px;">
+        <div class="div-alert-message"></div>
+        <div class="col s3" style="">
+            @{
+                string ipLocal = MeetingRecord.AppWeb.Helper.HelperFunction.HelperFunction.getLocalIPAddress();
+                string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority + Request.ApplicationPath.TrimEnd('/');
+                string finalUrl = baseUrl.Replace("intsider", ipLocal);
+                string meetingCode = @Model.dtsMeeting.Tables[0].Rows[0]["MeetingCode"].ToString();
+                <script type="text/javascript">
+                        var baseUrl     = "@baseUrl";
+                        var baseUrlPdf  = "@finalUrl";
+                </script>
+            }
+            <a href="@finalUrl/getMeetingByCodeExportToPDF/@meetingCode" style="color:#1075c5;font-style: italic;">
+                <div class="col s2"><img src="~/Content/MeetingRecordAppWeb/iconfile/ic_pdf.svg" style="width:20px;height:20px;" /></div>
+                <div class="col s10" style="padding-top:4px;margin-left:0px;font-size:11px;">Descargar PDF</div>
+            </a>
+        </div>
+
+        <div class="col s4" style="margin-left:-10px;">
+            <a id="btn-send-email" href="javascript:void(0);" data-meetingCode="@meetingCode" style="color:#1075c5;font-style: italic;">
+                <div class="col s2"><img src="~/Content/MeetingRecordAppWeb/img/ic_email.svg" style="width:20px;height:20px;" /></div>
+                <div class="col s10" style="padding-top:4px;margin-left:-10px;font-size:11px;">Enviar e-mail a los participantes</div>
+            </a>
+        </div>
+    </div>
+
+    <div class="pageA4" style="padding:50px;">
+        <!-- Título -->
+        <div class="row">
+            <div class="col s4">
+                <img src="~/Content/MaterialDesign/images/sider-gerdau/logo-gerdau.png" alt="" class="responsive-img" style="width: 150px;height: 40px;">
+            </div>
+            <div class="col s4">
+                <h5 class="header" style="padding-top:10px;">ACTA DE REUNIÓN</h5>
+            </div>
+            <div class="col s4" style="text-align: right;">
+                <img src="~/Content/MaterialDesign/images/sider-gerdau/logo-siderperu.png" alt="" class="responsive-img" style="width: 160px;height: 40px;">
+            </div>
+        </div>
+
+        <!-- Información de la reunión 21/8 -->
+        <div class="row">
+            <div class="col s12">
+                <table class="bordered">
+                    <tbody>
+                        <tr>
+                            <td><b>Código de reunión:</b></td>
+                            <td>@Model.dtsMeeting.Tables[0].Rows[0]["MeetingCode"].ToString()</td>
+                            <td><b>Fecha:</b></td>
+                            <td>@Model.dtsMeeting.Tables[0].Rows[0]["MeetingDate"].ToString()</td>
+                        </tr>
+                        <tr>
+                            <td><b>Área:</b></td>
+                            <td>@Model.dtsMeeting.Tables[0].Rows[0]["AreaName"].ToString()</td>
+                            <td><b>Célula:</b></td>
+                            <td>@Model.dtsMeeting.Tables[0].Rows[0]["CellName"].ToString()</td>
+                        <tr>
+                            <td><b>Hora Inicio:</b></td>
+                            <td>@Model.dtsMeeting.Tables[0].Rows[0]["MeetingStartTime"].ToString()</td>
+                            <td><b>Hora final:</b></td>
+                            <td>@Model.dtsMeeting.Tables[0].Rows[0]["MeetingEndTime"].ToString()</td>
+                        </tr>
+                        <tr>
+                            <td><b>Tipo de reunión:</b></td>
+                            <td>@Model.dtsMeeting.Tables[0].Rows[0]["TypeMeetingDescription"].ToString()</td>
+                            <td><b>Lugar:</b></td>
+                            <td>@Model.dtsMeeting.Tables[0].Rows[0]["LocationName"].ToString()</td>
+                        <tr>
+                            <td><b>Nombre de reunión: </b></td>
+                            <td>@Model.dtsMeeting.Tables[0].Rows[0]["MeetingSubject"].ToString()</td>
+                        </tr>
+                        <tr>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Agenda = Agenda -->
+        <div class="section">
+            <div class="row">
+                <div class="col s12">
+                    <h4 class="header">1. AGENDA</h4>
+                </div>
+                <div class="col s12">
+                    <table class="dataTable cell-border order-column row-border no-footer" style="width: 100%;">
+                        <tbody>
+                            @{
+                                int countGuide = Model.dtsGuide.Tables[0].Rows.Count;
+                                if (countGuide > 0)
+                                {
+                                    foreach (System.Data.DataRow guideDataRow in Model.dtsGuide.Tables[0].Rows)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="row" style="padding:5px;margin:0;">
+                                                    <div class="col s1" style="width:1%;">
+                                                        <i class="material-icons" style="padding-right:5px;font-size:15px;">done</i>
+                                                    </div>
+                                                    <div class="col s11" style="padding-left:15px;">
+                                                        @Html.Raw(guideDataRow["GuideDescription"].ToString().Replace("\r\n", "<br/>").Replace("\n", "<br/>").Replace("\r", "<br/>"))
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Desarrollo = Comentarios 21/8-->
+        <div class="section" style=" page-break-after: always;">
+            <div class="row">
+                <div class="col s12">
+                    <h4 class="header">2. COMENTARIOS</h4>
+                </div>
+                <div class="col s12">
+                    <table class="dataTable cell-border order-column row-border no-footer" style="width: 100%;">
+                        <tbody>
+                            @{
+                                int countMeetingDev = Model.dtsMeetingDev.Tables[0].Rows.Count;
+                                if (countMeetingDev > 0)
+                                {
+                                    foreach (System.Data.DataRow meetingDevDataRow in Model.dtsMeetingDev.Tables[0].Rows)
+                                    {
+                                        var meetingDevNameImage = meetingDevDataRow["MeetingDevNameImage"].ToString();
+                                        var meetingDevDescription = meetingDevDataRow["MeetingDevDescription"].ToString();
+
+                                        // Solo mostrar si hay descripción o imagen
+                                        if (!string.IsNullOrWhiteSpace(meetingDevDescription) || !string.IsNullOrWhiteSpace(meetingDevNameImage))
+                                        {
+                                            if (meetingDevNameImage == "")
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <div class="row" style="padding:5px;margin:0;">
+                                                            <div class="col s1" style="width:1%;">
+                                                                <i class="material-icons" style="padding-right:5px;font-size:15px;">star</i>
+                                                            </div>
+                                                            <div class="col s11" style="padding-left:15px;">
+                                                                @Html.Raw(meetingDevDescription.Replace("\r\n", "<br/>").Replace("\n", "<br/>").Replace("\r", "<br/>"))
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            }
+                                            else
+                                            {
+                                                string extImageBase64 = meetingDevDataRow["MeetingDevExtImage"].ToString();
+                                                string imageBase64 = meetingDevDataRow["MeetingDevImage"].ToString();
+                                                string image = extImageBase64 + imageBase64;
+                                                string meetingDevTitle = meetingDevDataRow["MeetingDevTitle"].ToString();
+
+                                                <tr>
+                                                    <td>
+                                                        @if (!string.IsNullOrEmpty(meetingDevTitle))
+                                                        {
+                                                            <div style="padding:15px;">
+                                                                <span>
+                                                                    <i class="material-icons" style="font-size:15px;padding-right:5px;">title</i>
+                                                                    <span style="font-weight: bold;">@Html.Raw(meetingDevTitle.Replace("\r\n", "<br/>").Replace("\n", "<br/>").Replace("\r", "<br/>"))</span>
+                                                                </span>
+                                                            </div>
+                                                        }
+                                                        @if (!string.IsNullOrEmpty(meetingDevDescription))
+                                                        {
+                                                            <div style="padding:15px;">
+                                                                <span>
+                                                                    <i class="material-icons" style="font-size:15px;padding-right:5px;">description</i>
+                                                                    <span>@Html.Raw(meetingDevDescription.Replace("\r\n", "<br/>").Replace("\n", "<br/>").Replace("\r", "<br/>"))</span>
+                                                                </span>
+                                                            </div>
+                                                        }
+                                                        <div style="padding:15px;" class="center">
+                                                            <img src="@image" alt="@meetingDevDataRow["MeetingDevNameImage"].ToString()" class="responsive-img" style="border:1px solid;width:80%;">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Plan de acción -->
+        <div class="section">
+            <div class="row">
+                <div class="col s12">
+                    <h4 class="header">3. PLAN DE ACCIÓN</h4>
+                </div>
+                <div class="col s12">
+                    <div class="">
+                        <table class="dataTable cell-border order-column row-border no-footer" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th style="width: 54%; text-align: center; color: white;"> Acción </th>
+                                    <th style="width: 8%; text-align: center; color: white;"> Categoría </th>
+                                    <th style="width: 10%; text-align: center; color: white;"> Responsable </th>
+                                    <th style="width: 10%; text-align: center; color: white;"> Fecha programada </th>
+                                    <th style="width: 8%; text-align:center; color:white;"> Prioridad </th>
+                                    <th style="width: 16%; text-align:center; color:white;"> Estado </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int countActionPlan = Model.dtsActionPlan.Tables[0].Rows.Count;
+                                    if (countActionPlan > 0)
+                                    {
+                                        foreach (System.Data.DataRow actionPlanDataRow in Model.dtsActionPlan.Tables[0].Rows)
+                                        {
+                                            <tr>
+                                                <td class="text-center-vh">
+                                                    @Html.Raw(actionPlanDataRow["ActionPlanWhat"].ToString().Replace("\r\n", "<br/>").Replace("\n", "<br/>").Replace("\r", "<br/>"))
+                                                </td>
+                                                <td class="text-center-vh">
+                                                    @Html.Raw(actionPlanDataRow["ActionPlanCategoryName"].ToString().Replace("\r\n", "<br/>").Replace("\n", "<br/>").Replace("\r", "<br/>"))
+                                                </td>
+                                                <td class="text-center-vh">
+                                                    @actionPlanDataRow["ResponsibleUserName"].ToString()
+                                                </td>
+                                                <td class="text-center-vh">
+                                                    @actionPlanDataRow["ActionPlanScheduledDate"].ToString()
+                                                </td>
+                                                <td class="text-center-vh">
+                                                    @{
+                                                        var prioridad = actionPlanDataRow["ActionPlanPriority"].ToString();
+                                                        string color = "";
+                                                        switch (prioridad)
+                                                        {
+                                                            case "ALTA": color = "red"; break;
+                                                            case "MEDIA": color = "orange darken-1"; break;
+                                                            case "BAJA": color = "green"; break;
+                                                        }
+                                                        string stylePrioridad = "font-size:12px;font-weight:bold;color:#fff;";
+                                                    }
+                                                    <span style="display:flex;justify-content:center;align-items:center;height:100%;">
+                                                        @if (!string.IsNullOrEmpty(prioridad))
+                                                        {
+                                                            <span class="text-center-vh new badge @color" style="@stylePrioridad">
+                                                                @prioridad
+                                                            </span>
+                                                        }
+                                                    </span>
+                                                </td>
+                                                <td class="text-center-vh">
+                                                    @{
+                                                        var status = actionPlanDataRow["ActionPlanStatus"].ToString();
+                                                        string statusHtml = "";
+                                                        string styleEstado = "white-space:nowrap;min-width:90px;font-weight:bold;color:#fff;";
+                                                        switch (status)
+                                                        {
+                                                            case "1":
+                                                                statusHtml = $"<span class='new badge yellow darken-1' style='{styleEstado}'>En Proceso</span>";
+                                                                break;
+                                                            case "2":
+                                                                statusHtml = $"<span class='new badge red' style='{styleEstado}'>Fuera de Plazo</span>";
+                                                                break;
+                                                            case "3":
+                                                                statusHtml = $"<span class='new badge green' style='{styleEstado}'>Cerrado</span>";
+                                                                break;
+                                                            case "4":
+                                                                statusHtml = $"<span class='new badge orange darken-1' style='{styleEstado}'>Cerrado Fuera de Plazo</span>";
+                                                                break;
+                                                        }
+                                                    }
+                                                    @Html.Raw(statusHtml)
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="5" style="text-align:center;">Sin plan de acción</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Agenda y Comentarios en dos filas -->
+        <!--<div class="section">
+            <div class="row">
+                <div class="col s12">
+                    <h4 class="header">2. Agenda y Comentarios</h4>
+                </div>
+                <div class="col s12">
+                    <table class="dataTable cell-border order-column row-border no-footer" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th class="text-center-vh" style="width:50%; color: white;">Agenda</th>
+                                <th class="text-center-vh" style="width:50%; color: white;">Comentarios</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center-vh">
+                                    @{
+                                        var agenda = Model.dtsGuide.Tables[0].Rows.Count > 0
+                                            ? Model.dtsGuide.Tables[0].Rows[0]["GuideDescription"].ToString()
+                                            : "";
+                                    }
+                                    @Html.Raw(agenda.Replace("\r\n", "<br/>").Replace("\n", "<br/>").Replace("\r", "<br/>"))
+                                </td>
+                                <td class="text-center-vh">
+                                    @{
+                                        var comentarios = Model.dtsMeetingDev.Tables[0].Rows.Count > 0
+                                            ? Model.dtsMeetingDev.Tables[0].Rows[0]["MeetingDevDescription"].ToString()
+                                            : "";
+                                    }
+                                    @Html.Raw(comentarios.Replace("\r\n", "<br/>").Replace("\n", "<br/>").Replace("\r", "<br/>"))
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div> -->
+        <!-- Asistencia -->
+        <div class="section">
+            <div class="row">
+                <div class="col s12">
+                    <h4 class="header">4. ASISTENCIA</h4>
+                </div>
+                <div class="col s12">
+                    <div class="">
+                        <table class="dataTable cell-border order-column row-border stripe no-footer" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th style="width: 45%; text-align: center; color: white;"> Nombre </th>
+                                    <th style="width: 45%; text-align: center; color: white;"> Descripción </th>
+                                    <th style="width: 10%; text-align: center; color: white;"> Asistencia </th>
+                                    <th style="width: 10%; text-align: center; color: white;"> Motivo </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (System.Data.DataRow userAssistanceDataRow in Model.dtsUserAssistance.Tables[0].Rows)
+                                {
+                                    bool userAssistanceStatus = Convert.ToBoolean(userAssistanceDataRow["UserAssistanceStatus"]);
+                                    bool userAssistanceJustification = Convert.ToBoolean(userAssistanceDataRow["UserAssistanceJustification"]);
+                                    string userAssistanceGuest = userAssistanceDataRow["UserAssistanceGuest"].ToString();
+                                    string userInternal = userAssistanceDataRow["UserName"].ToString();
+                                    string areName = userAssistanceDataRow["AreaName"].ToString();
+                                    string userName = userAssistanceGuest == "" ? userInternal : userAssistanceGuest;
+                                    <tr>
+                                        <td>@userName</td>
+                                        <td>
+                                            @if (userAssistanceGuest != "")
+                                            {
+                                                <div class="desc-detail col s12 center">@userAssistanceDataRow["UserAssistanceGuestDesc"].ToString()</div>
+                                            }
+                                            else if (areName == "--")
+                                            {
+                                                <div class="desc-detail col s12 center">@userAssistanceDataRow["EnterpriseName"].ToString()</div>
+                                            }
+                                            else
+                                            {
+                                                <div>
+                                                    <div class="col s12">
+                                                        <div class="title-detail col s2">Área: </div><div class="desc-detail col s10">@userAssistanceDataRow["AreaName"].ToString()</div>
+                                                    </div>
+                                                    <div class="col s12">
+                                                        <div class="title-detail col s2">Célula: </div><div class="desc-detail col s10">@userAssistanceDataRow["CellName"].ToString()</div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </td>
+                                        <td class="text-center-vh">
+                                            @{
+                                                bool userAssistanceDelay = false;
+                                                if (userAssistanceDataRow.Table.Columns.Contains("UserAssistanceDelay"))
+                                                {
+                                                    var delayValue = userAssistanceDataRow["UserAssistanceDelay"];
+                                                    userAssistanceDelay = delayValue != DBNull.Value && Convert.ToInt32(delayValue) == 1;
+                                                }
+                                            }
+                                            @if (userAssistanceStatus)
+                                            {
+                                                if (userAssistanceDelay)
+                                                {
+                                                    <span class="span-circle" style="background: #43a047; color: #fff;">T</span>
+                                                }
+                                                else
+                                                {
+                                                    <i class="material-icons" style="color:green; font-size:30px;">check_circle</i>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if (userAssistanceJustification)
+                                                {
+                                                    <span class="span-circle" style="background: #fbc02d; color: #fff;">J</span>
+                                                }
+                                                else
+                                                {
+                                                    <i class="material-icons" style="color:red; font-size:30px;">cancel</i>
+                                                }
+                                            }
+                                        </td>
+                                        <td>
+                                            @userAssistanceDataRow["userAssistanceReasonJustification"].ToString()
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="div-modal"></div>
+
+    <!-- BEGIN SCRIPT RENDER -->
+    @Scripts.Render("~/bundles/js/MaterialDesign")
+    @Scripts.Render("~/bundles/js/HelperFunction")
+    @Scripts.Render("~/bundles/js/MeetingDetail")
+    <!-- END SCRIPT RENDER -->
+</body>
+</html>

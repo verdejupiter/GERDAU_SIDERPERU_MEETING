@@ -1,0 +1,186 @@
+﻿<!--============================================
+Description:    Vista de reporte
+Author:         ANGELY YAHAYRA MENDEZ CRUZ
+Version:        1.1.0
+UpdateAt:       26/07/2025
+================================================ -->
+<!--
+@{ Layout = "~/Views/Shared/_Layout.cshtml";}
+<div class="container">
+
+    <!-- Sección: Filtro -->
+<!--<div class="seaction">
+    <div class="row" style="padding-top: 20px;">
+        <div class="col s12 m12 l12 div-info">
+            <div class="card grey white hoverable">
+                <div class="card-image white lighten-4">
+                    <div class="card-content card-content-head" style="border-bottom:1px solid #e0e6ed; margin-bottom:8px;">
+                        <span class="card-title blue-dark-text">
+                            <i class="material-icons">filter_list</i>
+                            <span>&nbsp;&nbsp;Filtros</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="card-content black-text">
+                    <div class="row">
+                        <!-- Tipo de Reunión -->
+<!--<div class="col s12 m5" style="padding-top: 8px;">
+    <div class="input-field-with-icon">
+        <select name="cbo-type-meeting" id="cbo-type-meeting" class="select-dropdown select-with-search pmd-select2 form-control">
+            <option value="" disabled selected>Seleccione...</option>
+        </select>
+        <label for="cbo-type-meeting">Tipo de reunión </label>
+    </div>
+</div>
+<!-- Área -->
+<!--<div class="col s12 m4" style="padding-top: 8px;">
+    <div class="input-field-with-icon">
+        <select name="cbo-area" id="cbo-area" class="select-dropdown select-with-search pmd-select2 form-control">
+        </select>
+        <label for="cbo-area">Área </label>
+    </div>
+</div>
+<!--<div class="col s3">
+<div class="col s2"><i class="material-icons prefix">adjust</i></div>
+<div class="col s10">
+    <label>Célula</label>
+    <div class="div-cell">
+        <select id="cbo-cell" class="select-with-search pmd-select2 form-control">
+            <option value="0"> * Todos</option>
+        </select>
+    </div>
+</div>
+</div> //ANTES-->
+<!--<div class="col s2">
+    <button type="button" id="btn-filter-report-meeting" class="waves-effect waves-light btn blue gradient-shadow" style="padding-left: 8px; padding-right: 10px;">
+        <i class="material-icons left" style="margin-right: 5px;">filter_list</i> Buscar
+    </button>
+</div>
+                    </div>
+<div class="row" style="padding-top:20px;">
+    <div class="col s4">
+        <div class="col s1"> <i class="material-icons prefix">list</i></div>
+        <div class="col s11">
+            <label>Mes</label>
+            <select id="cbo-month" class="select-with-search pmd-select2 form-control">
+                <option value="1">Enero</option>
+                <option value="2">Febrero</option>
+                <option value="3">Marzo</option>
+                <option value="4">Abril</option>
+                <option value="5">Mayo</option>
+                <option value="6">Junio</option>
+                <option value="7">Julio</option>
+                <option value="8">Agosto</option>
+                <option value="9">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+            </select>
+        </div>
+    </div>
+    <div class="col s3" style="padding-top: 5px;">
+        <div class="col s2"> <i class="material-icons prefix">list</i></div>
+        <div class="col s10">
+            <label>Año</label>
+            <select id="cbo-year" class="select-with-search pmd-select2 form-control">
+                <option value="2019">2019</option>
+                <option value="2018">2018</option>
+            </select>
+        </div>
+    </div>
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sección: Reporte en cuadro el seguimiento detallada de cumplimiento de asistencias -->
+<!--<div class="seaction">
+    <div class="row" style="padding-top: 20px;">
+        <div class="col s12 m12 l12 div-info">
+            <div class="card grey white hoverable">
+                <div class="card-image blue lighten-4">
+                    <div class="card-content card-content-head">
+                        <span class="card-title black-text">
+                            <i class="material-icons">insert_chart</i>
+                            <span>&nbsp;&nbsp;Seguimiento detallada de cumplimiento de asistencias</span>
+                        </span>
+                    </div>
+                    <a id="btn-export-to-excel" href="javascript:void(0);" class="btn-floating activator halfway-fab waves-effect waves-light  green darken-1 tooltipped" data-position="top" data-delay="50" data-tooltip="Exportar a excel">
+                        <img style="padding:10px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFTSURBVEhL3ZW9SgNREIVXRLBX0V7wEWxs7PzBB/AZLMRWFMGHyKuInaWPYCcoVhYWCloIid8cz2Yny25ymzT5YJh7ztw5mx9IqsVnOBxujEajffoZNaAeqHePy+kLwuvEa+V4r5i+HV7UG3Ws0IznxUzb4QGvCs14VsysHYVm7BfjNZG1hmDZYD/e3k1o+rX1o/WpLpjwfOwk5hPYj8BPapPjOv2bOuS8Sn/RBZN3ulBoxr4gbBAe/cL9yqMx4ddkrSFYNtgXBP5SOxyXqC3OXxok2jttFJqxLwj8obY5LtPXqI//SUN7p41CM/YFgbfh0S/dzz0aE35N1hqCZYP9CH+mxZe6a71HW6E/ha7JO10oNGM/Ak9C0++s762PdMGE52MnMZ/AfjFeE1lrCJYN9ouZtaPQjP1ipu3wcc7vxy7CqQOFZjDn+4fTR9+DPV54quoP0j7IvZwLk/YAAAAASUVORK5CYII=">
+                    </a>
+                </div>
+                <div class="card-content black-text">
+                    <div class="table-responsive" style="overflow-x: auto;">
+                        <div id="div-detail-user-assistance">
+                            <div class="center" style="padding:50px;font-size:20px;color:#828282;">No se encontraros datos</div>
+                        </div>
+                        <table id="table-detail-user-assistance" class="table table-bordered table-hover" width="100%" style="margin-top:15px;margin-bottom:25px !important;" hidden="hidden">
+                            <thead>
+                                <tr class="grey">
+                                    <th rowspan="4" width="5%" style="background-color: #7e91b0 !important;border-color: #7e91b0 !important;"><div style="color:#ffffff;font-weight: bold;">Código</div></th>
+                                    <th rowspan="4" width="30%" style="background-color: #7e91b0 !important;border-color: #7e91b0 !important;"><div style="color:#ffffff;font-weight: bold;">Persona</div></th>
+                                    <th colspan="28" id="th-asistencia" width="40%" style="background-color: #7e91b0 !important;border-color: #7e91b0 !important;">
+                                        <div class="title-filter" style="color:#ffffff;font-weight: bold;"><div>
+                                    </th>
+                                    <th rowspan="4" class="rotate" width="5px" style="background-color: #00CC66 !important;"><p><span>Participa</span></p></th>
+                                    <th rowspan="4" class="rotate" width="5px" style="background-color: #FFCC00 !important;"><p style="color: #000 !important;"><span>Justificado</span></p></th>
+                                    <th rowspan="4" class="rotate" width="5px" style="background-color: #CC0000 !important;"><p><span>NoParticipa</span></p></th>
+                                    <th rowspan="4" class="rotate" width="5px" style="background-color: #00CC66 !important;"><p><span>Participa</span></p></th>
+                                    <th rowspan="4" class="rotate" width="5px" style="background-color: #FFCC00 !important;"><p style="color: #000 !important;"><span>Justificado</span></p></th>
+                                    <th rowspan="4" class="rotate" width="5px" style="background-color: #CC0000 !important;"><p><span>NoParticipa</span></p></th>
+                                </tr>
+                                <tr>
+                                    <th id="th-participa" style="background-color: #00CC66 !important; color: #000 !important;" colspan="9"> P = Participa <br><label id="total-p">Total : 62%</label></th>
+                                    <th id="th-justificado" style="background-color: #FFCC00 !important; color: #000 !important;" colspan="10"> J = Justificado  <br> <label id="total-j">Total : 4%</label></th>
+                                    <th id="th-no-participa" style="background-color: #CC0000 !important; color: #FFF !important;" colspan="9"> N = No Participa  <br> <label id="total-n">Total : 34%</label></th>
+                                </tr>
+                                <tr id="name_days" style="font-size:8px !important;"></tr>
+                                <tr id="num_days" style="font-size:8px !important;"></tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sección: Reporte gráfico de porcentaje de cumplimiento de asistencias -->
+<!--<div class="seaction">
+    <div class="row" style="padding-top: 20px;">
+        <div class="col s12 m12 l12 div-info">
+            <div class="card grey white hoverable">
+                <div class="card-image blue lighten-4">
+                    <div class="card-content card-content-head">
+                        <span class="card-title black-text">
+                            <i class="material-icons">insert_chart</i>
+                            <span>&nbsp;&nbsp;Porcentaje de cumplimiento de asistencias</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="card-content black-text">
+                    <div id="chart_percent_assistance" style="width: 100%;min-height:400px; background-color: #FFFFFF;">
+                        <div class="center" style="padding:150px;font-size:20px;color:#828282;">No se encontraros datos</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                        </div>
+<!-- Styles Render -->
+@section Styles {
+    @Styles.Render("~/bundles/css/AmCharts3")
+}
+
+<!-- BEGIN SCRIPT -->
+@section Scripts {
+    @Scripts.Render("~/bundles/js/DataTable")
+    @Scripts.Render("~/bundles/js/AmCharts3")
+    @Scripts.Render("~/bundles/js/ExportExcel")
+    @Scripts.Render("~/bundles/js/Report")
+}
+<!-- END SCRIPT -->

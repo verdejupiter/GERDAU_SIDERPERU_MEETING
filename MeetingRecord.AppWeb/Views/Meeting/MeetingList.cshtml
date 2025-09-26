@@ -1,0 +1,197 @@
+﻿<!-- start container-->
+<div class="container">
+    <div class="seaction">
+        <div class="col s12 m12 l12">
+
+            <!-- Filtro -->
+            <div class="row">
+                <div class="col s12 m12 l12">
+                    <div style="padding-top:10px; display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                        <div style="flex: 1; text-align: left;">
+                            <h4 class="header" style="margin: 0;">Actas de reunión</h4>
+                        </div>
+                        <div style="text-align: center;">   <!-- AMENDEZ5 -->
+                            <select id="ddl-meeting-scope"></select>
+                        </div>
+                    </div>
+
+                    <div class="card grey white">
+                        <!-- Título: Filtro-->  <!-- AMENDEZ5 -->
+                        <div class="card-image white lighten-4">
+                            <div class="card-content card-content-head" style="border-bottom:1px solid #e0e6ed; margin-bottom:8px;">
+                                <span class="card-title blue-dark-text">
+                                    <i class="material-icons prefix">filter_list</i> Filtro
+                                </span>
+                            </div>
+                        </div>
+                        <div class="card-content black-text" style="padding: 0px 0px 0px 10px;">
+                            <div class="div-search-by-filter" style="padding-bottom:30px;">
+                                <div class="row" style="padding-bottom: 10px;">
+                                    <!-- Código de Reunión -->
+                                    <div class="col s12 m3" style="padding-top: 8px;">
+                                        <div class="input-field-with-icon">
+                                            <input id="txt-cod-reunion" type="text" class="validate" placeholder="Buscar">
+                                            <label for="txt-cod-reunion">Cod.Reunión</label>
+                                        </div>
+                                    </div>
+                                    <!-- Área -->
+                                    <div class="col s12 m4" style="padding-top: 9px;">
+                                        <div class="input-field-with-icon">
+                                            <select name="cbo-area" id="cbo-area" class="select-dropdown select-with-search pmd-select2 form-control">
+                                            </select>
+                                            <label for="cbo-area">Área </label>
+                                        </div>
+                                    </div>
+                                    <!-- Tipo de Reunión -->
+                                    <div class="col s12 m5" style="padding-top: 9px;">
+                                        <div class="input-field-with-icon">
+                                            <select name="cbo-type-meeting" id="cbo-type-meeting" class="select-dropdown select-with-search pmd-select2 form-control">
+                                            </select>
+                                            <label for="cbo-type-meeting">Tipo de reunión </label>
+                                        </div>
+                                    </div>
+                                    <!-- Buscar -->
+                                    <!--<div class="col s3" style="padding-top: 15px;">
+    <div class="col s2"> <i class="material-icons prefix">adjust</i></div>
+    <div class="col s10">
+        <label>Célula</label>
+        <div class="div-cell">
+            <select id="cbo-cell" class="select-with-search pmd-select2 form-control">
+                <option value="0"> * Todos</option>
+            </select>
+        </div>
+    </div>
+    </div>
+    <div class="col s4">
+        <div class="col s10">
+            <label>Tipo de reunión</label>
+            <select name="cbo-type-meeting" id="cbo-type-meeting" class="select-with-search pmd-select2 form-control">
+            </select>
+        </div>
+    </div>-->
+
+                                </div>
+                                <div class="row">
+                                    <!-- Fecha Inicio -->
+                                    <div class="col s12 m2" style="padding-top: 8px;">
+                                        <div class="input-field-with-icon">
+                                            <input id="txt-start-date" type="text">
+                                            <i class="material-icons suffix icon-calendar">date_range</i>
+                                            <label>Fecha Inicio</label>
+                                        </div>
+                                    </div>
+                                    <!-- Fecha Fin -->
+                                    <div class="col s12 m2" style="padding-top: 8px;">
+                                        <div class="input-field-with-icon">
+                                            <input id="txt-end-date" type="text">
+                                            <i class="material-icons suffix icon-calendar">date_range</i>
+                                            <label>Fecha Fin</label>
+                                        </div>
+                                    </div>
+                                    <!-- Creado por -->
+                                    <div class="col s12 m5" style="padding-top: 8px;">
+                                        <div class="input-field-with-icon">
+                                            <input name="txt-user" id="txt-user" class="" type="text" autocomplete="off" data-userid="0" placeholder="Escribir el nombre">
+                                            <label for="txt-user" class="">Creado por</label>
+                                        </div>
+                                    </div>
+                                    <!-- Buscar-->
+                                    <div class="col s12 m3" style="padding-top: 20px;">
+                                        <button type="button" class="waves-effect waves-light btn blue gradient-shadow btn-filter-meeting" style="padding-left: 11px; padding-right: 13px;">
+                                            <i class="material-icons left" style="margin-right: 5px;">search</i>BUSCAR
+                                        </button>
+                                        <button type="button" class="waves-effect waves-light btn light-blue lighten-1 btn-clear-filters" style="margin-left: 10px; padding-left: 10px; padding-right: 10px;">
+                                            LIMPIAR
+                                        </button>
+                                    </div>
+                                </div>
+
+                                    <!--<div class="col s2" style="padding-top: 20px;">
+    <button type="button" class="waves-effect waves-light btn black gradient-shadow btn-show-more-options" style="padding-left: 8px; padding-right: 10px;">
+        <i class="material-icons left" style="margin-right: 5px;">add</i> Más opciones
+        </button>
+    </div>-->
+                                    <!--<div class="row div-more-options" hidden="hidden">
+        <div class="col s4">
+            <div class="col s1"><i class="material-icons prefix">description</i></div>
+            <div class="col s10">
+                <div class="input-field">
+                    <input name="txt-description" id="txt-description" type="text" autocomplete="off">
+                    <label for="txt-description" class="">Palabra</label>
+                </div>
+            </div>
+        </div>
+    </div>-->
+                                </div>
+
+                            <!--<div class="div-search-by-id" style="padding-bottom:20px;display: none;">
+            <div class="row">
+                <div class="col s3">
+                    <div class="col s1">
+                        <span style="font-size: 40px;font-weight: bold;">#</span>
+                    </div>
+                    <div class="col s10" style="padding-left: 15px;">
+                        <div class="input-field">
+                            <input id="txt-meeting-id" type="text" autocomplete="off">
+                            <label for="txt-meeting-id">ID</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s2" style="padding-top: 20px;">
+                    <button type="button" class="waves-effect waves-light btn blue gradient-shadow btn-filter-meeting" style="padding-left: 8px; padding-right: 10px;">
+                        <i class="material-icons left" style="margin-right: 5px;">filter_list</i> Recuperar
+                    </button>
+                </div>
+            </div>
+        </div>-->
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Lista de actas de reuniones-->
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <div class="card grey white ">
+                            <div class="card-image white lighten-4">
+                                <div class="card-content card-content-head" style="border-bottom:1px solid #e0e6ed; margin-bottom:18px;">
+                                    <span class="card-title blue-dark-text">
+                                        <i class="material-icons">assignment_turned_in</i> Acta de reunión
+                                    </span>
+                                </div>
+                                <a id="btn-export-to-excel" class="btn-floating activator halfway-fab waves-effect waves-light green">
+                                    <img style="padding:10px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFTSURBVEhL3ZW9SgNREIVXRLBX0V7wEWxs7PzBB/AZLMRWFMGHyKuInaWPYCcoVhYWCloIid8cz2Yny25ymzT5YJh7ztw5mx9IqsVnOBxujEajffoZNaAeqHePy+kLwuvEa+V4r5i+HV7UG3Ws0IznxUzb4QGvCs14VsysHYVm7BfjNZG1hmDZYD/e3k1o+rX1o/WpLpjwfOwk5hPYj8BPapPjOv2bOuS8Sn/RBZN3ulBoxr4gbBAe/cL9yqMx4ddkrSFYNtgXBP5SOxyXqC3OXxok2jttFJqxLwj8obY5LtPXqI//SUN7p41CM/YFgbfh0S/dzz0aE35N1hqCZYP9CH+mxZe6a71HW6E/ha7JO10oNGM/Ak9C0++s762PdMGE52MnMZ/AfjFeE1lrCJYN9ouZtaPQjP1ipu3wcc7vxy7CqQOFZjDn+4fTR9+DPV54quoP0j7IvZwLk/YAAAAASUVORK5CYII=">
+                                </a>
+                            </div>
+                            <div class="card-content white-text" style="padding: 20px;">
+                                <!--<div class="div-alert-message"></div>-->
+                                <!--<div class="div-progress-bar center"></div>-->
+                                <table id="datatable-meeting" class="dataTable display cell-border hover order-column row-border stripe" style="width: 100%;padding-top:10px;"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Floating Action Button -->
+                                <!--<div class="fixed-action-btn" style="bottom: 50px; right: 19px;">
+        <a id="fab-show-meeting-register" href="MeetingRegister" class="btn-floating btn-large waves-effect waves-light blue gradient-shadow">
+            <i class="material-icons">add</i>
+        </a>
+    </div>-->
+                            </div>
+<!--end container -->
+
+<!-- BEGIN USING -->
+@*@using System.Web.Optimization*@
+<!-- END USING -->
+<!-- BEGIN SCRIPT RENDER -->
+@section Scripts {
+    @Scripts.Render("~/bundles/js/MeetingList")
+}
+<!-- END SCRIPT RENDER -->

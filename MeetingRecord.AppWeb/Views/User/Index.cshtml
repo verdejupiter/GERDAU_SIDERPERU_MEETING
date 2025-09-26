@@ -1,0 +1,81 @@
+﻿<!--============================================
+Description:    Index - User
+Author:         ANGELY YAHAYRA MENDEZ CRUZ
+Version:        1.1.0
+UpdateAt:       26/07/2025
+================================================ -->
+<!-- start container-->
+<div class="container">
+    <div class="seaction">
+        <div class="col s12 m12 l12" style="padding-top: 20px;">
+            <div class="row">
+                <div class="col s12 m12 l12">
+                    <div class="card hoverable">
+                        <div class="card-image">
+                            <div class="card-content card-content-head" style="border-bottom:1px solid #e0e6ed; margin-bottom:18px;">
+                                <span class="card-title blue-dark-text">
+                                    <i class="material-icons">person</i> <span>Usuarios Administradores</span>
+                                </span>
+                            </div>
+                            <a id="btn-add-user" class="btn-floating activator halfway-fab waves-effect waves-light green">
+                                <i class="material-icons">add</i>
+                            </a>
+                        </div>
+                        <div class="card-content card-content-body div-content-user white-text" style="height: 100%; overflow-y: auto;">
+                            <div class="div-alert-message"></div>
+                            <table id="datatable-user" class="dataTable display cell-border hover order-column row-border stripe" style="width: 100%;"></table>
+                        </div>
+                        <!--<div class="card-reveal" style="display: none; transform: translateY(0px);">
+                            <span class="card-title grey-text text-darken-4 hide-form">
+                                <span class="title-user">Agregar usuario</span>
+                                <i class="material-icons right">close</i>
+                            </span>
+                            <div class="divider mt-1"></div>
+                            <div style="padding-top: 20px;">
+                                <form id="form-user" onsubmit="return false">
+                                    <div class="row">
+                                        <div class="input-field col s12 m12 l6">
+                                            <input name="txt-user" id="txt-user" type="text" autocomplete="off">
+                                            <label id="label-user" for="txt-user">Usuario</label>
+                                        </div>
+                                        <div class="col s12 m12 l6" style="padding-top: 30px;">
+                                            <div class="col s2 m2 l2">
+                                                <label class="switch">
+                                                    <input id="check-status" type="checkbox" class="switch-option-check"> <span class="slider round"></span>
+                                                    <div class="badge-status">
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12 m12 l6">
+                                            <select id="cbo-user-role" class="select-with-search pmd-select2 form-control">
+                                                <option value="1" selected>ADMINISTRADOR</option>
+                                            </select>
+                                            <label for="cbo-user-role" class="active">Rol</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s12 m12 l6">
+                                            <div class="div-content-btn" style="padding-top:50px;"></div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div> // ANTES-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end container -->
+<!-- BEGIN USING -->
+@*@using System.Web.Optimization*@
+<!-- END USING -->
+<!-- BEGIN SCRIPT RENDER -->
+@section Scripts {
+    @Scripts.Render("~/bundles/js/User")
+}
+<!-- END SCRIPT RENDER -->

@@ -1,0 +1,17 @@
+﻿@model MeetingRecord.AppWeb.Models.Model.M_Modal
+
+<!-- Modal Structure -->
+<div id="@Model.ModalId" class="modal modal-fixed-footer @Model.ModalClass">
+    <form id="form-modal" onsubmit="return false">
+        <div class="modal-header">
+            @Html.Raw(@Model.ModalHeader)
+        </div>
+        <div class="modal-content">
+            <div class="modal-body">@Html.Raw(@Model.ModalBody)</div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="modal-action modal-close waves-effect btn-flat grey lighten-2">Cancelar</button>
+                    @Html.Raw(@Model.ModalButtonOk)
+        </div>
+    </form>
+</div>
